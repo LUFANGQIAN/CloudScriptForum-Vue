@@ -1,33 +1,32 @@
 <template>
-  <div class="login p-4 max-w-sm mx-auto">
-    <h1 class="text-2xl font-bold mb-4">登录</h1>
-    <el-form :model="form" label-width="80px">
-      <el-form-item label="用户名">
-        <el-input v-model="form.username"></el-input>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input type="password" v-model="form.password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">登录</el-button>
-      </el-form-item>
-    </el-form>
+  <div class="biggestBox">
+    <div class="box">
+
+    </div>
   </div>
 </template>
 
-<script setup>
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
 
-const router = useRouter();
-const form = reactive({
-  username: '',
-  password: '',
-});
+<script setup name="Login">
 
-const onSubmit = () => {
-  // 登录逻辑
-  console.log('submit!', form);
-  router.push('/');
-};
 </script>
+
+
+<style>
+.biggestBox {
+  width: 100%;
+  height: 100%;
+  background-color: #F9FAFB;
+}
+
+.box {
+  display: flex;
+  width: 1152px;
+  height: 691px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.001), rgba(0, 0, 0, 0.001)), #FFFFFF;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.04), 0px 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+</style>
