@@ -25,6 +25,8 @@ const form = reactive({
   password: '',
 });
 
+let test = undefined;
+
 const onSubmit = () => {
   // 登录逻辑
   console.log('submit!', form);
