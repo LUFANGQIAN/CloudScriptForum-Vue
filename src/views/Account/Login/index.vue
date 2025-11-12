@@ -68,7 +68,7 @@
           </div>
 
           <!-- 登录按钮 -->
-          <el-button type="primary" class="login-btn" @click="loginBtn">
+          <el-button type="primary" class="login-btn" @click="throttledLoginBtn">
             登录账户
           </el-button>
 
@@ -183,6 +183,25 @@ const changeCheckCode = async () => {
 onMounted(() => {
   changeCheckCode();
 });
+
+
+// 登录节流
+// 替换原来的 throttle 函数（放在合适位置，比如 loginBtn 上方或下方）
+function throttle(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+        timer = null;
+      }, delay);
+    }
+  };
+}
+
+// 创建节流后的登录函数
+const throttledLoginBtn = throttle(loginBtn, 2000); // 2000ms 内只允许点一次
+
 </script>
 
 <style scoped>
@@ -374,11 +393,25 @@ onMounted(() => {
 
 /* 右侧宣传图 */
 .login_right {
+  position: relative;
   width: 550px;
   height: 660px;
 }
 
 .login_right_bgc {
-  background-image: url(..\src\views\Account\Account_img\login_right_bgc.png)
+  background-image: url(../../../assets/img/login_right_bgc.png);
+  width: 100%;
+  height: 100%;
+  border-radius: 0 20px 20px 0;
+  opacity: 0.4;
+}
+
+.login_right_middle {
+  position: absolute;
+  background-image: url(../../../assets/img/login_middle_logo.png);
+  width: 448px;
+  height: 288px;
+  top: 187px;
+  left: 51px;
 }
 </style>
