@@ -194,6 +194,7 @@ const goToNotification = () => {
 
 const handleLoginClick = () => {
   // 直接使用路径跳转，更可靠
+  // router.push("login");
   router.push("/login");
 };
 

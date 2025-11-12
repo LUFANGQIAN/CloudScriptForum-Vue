@@ -108,12 +108,7 @@ const router = createRouter({
           component: () => import("@/views/Account/index.vue"),
           redirect: "/login",
           children: [
-            {
-              path: "/login",
-              component: () => import("@/views/Account/Login/index.vue"),
-              name: "login",
-              meta: { title: "用户登录" },
-            },
+
             {
               path: "/register",
               component: () => import("@/views/Account/Register/index.vue"),
@@ -129,6 +124,12 @@ const router = createRouter({
           ],
         },
       ],
+    },
+    {
+      path: "/login",
+      component: () => import("@/views/Account/Login/index.vue"),
+      name: "login",
+      meta: { title: "用户登录" },
     },
     {
       path: "/creation",
