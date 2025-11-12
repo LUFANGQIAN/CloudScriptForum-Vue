@@ -1,24 +1,23 @@
 <template>
-  <div class="home p-4">
-    <h1 class="text-2xl font-bold mb-4">论坛主页</h1>
-    <div class="post-list">
-      <div v-for="post in posts" :key="post.id" class="post-item border-b py-2">
-        <router-link :to="{ name: 'Post', params: { id: post.id } }" class="text-lg font-semibold text-blue-600 hover:underline">{{ post.title }}</router-link>
-        <p class="text-gray-600">作者: {{ post.author }}</p>
+  <div id="app">
+    <nav class="bg-gray-800 text-white p-4">
+      <div class="container mx-auto flex justify-between">
+        <router-link to="/" class="font-bold">论坛</router-link>
+        <div>
+          <router-link to="/" class="mr-4">主页</router-link>
+          <router-link to="/login" class="mr-4">登录</router-link>
+          <router-link to="/register" class="mr-4">注册</router-link>
+          <router-link to="/personal-homepage">个人主页</router-link>
+        </div>
       </div>
-    </div>
+    </nav>
+    <main class="container mx-auto p-4">
+      <router-view/>
+    </main>
   </div>
-  
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const posts = ref([
-  { id: 1, title: 'Vue 3 学习指南', author: 'User1' },
-  { id: 2, title: 'Element Plus 使用技巧', author: 'User2' },
-  { id: 3, title: 'Tailwind CSS 快速入门', author: 'User3' },
-]);
 
 </script>
 

@@ -1,39 +1,176 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import Profile from '../views/Profile.vue'
-import Post from '../views/Post.vue'
+import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
+      path: "/",
+      name: "index",
+      component: () => import("@/views/Layout/index.vue"),
+      meta: { title: "主页" },
+      children: [
+        {
+          path: "/",
+          name: "Home",
+          component: () => import("@/views/Home/index.vue"),
+          meta: { title: "首页" },
+        },
+        {
+          path: "article",
+          name: "Article",
+          component: () => import("@/views/Article/index.vue"),
+          meta: { title: "文章" },
+        },
+        {
+          path: "search",
+          name: "Search",
+          component: () => import("@/views/Search/index.vue"),
+          meta: { title: "搜索" },
+        },
+        {
+          path: "link",
+          name: "Link",
+          component: () => import("@/views/Link/index.vue"),
+          meta: { title: "友链" },
+        },
+        {
+          path: "album",
+          name: "Album",
+          component: () => import("@/views/Album/index.vue"),
+          meta: { title: "相册" },
+          redirect: "/album/square",
+          children: [
+            {
+              path: "square",
+              name: "AlbumSquare",
+              component: () => import("@/views/Album/AlbumSquare/AlbumSquare.vue"),
+              meta: { title: "相册广场" },
+            },
+            {
+              path: "myAlbum",
+              name: "MyAlbum",
+              component: () => import("@/views/Album/MyAlbum/MyAlbum.vue"),
+              meta: { title: "我的相册" },
+            },
+            {
+              path: ":albumId",
+              name: "AlbumDetail",
+              component: () => import("@/views/Album/AlbumDetail/AlbumDetail.vue"),
+              meta: { title: "相册详情" },
+            },
+          ],
+        },
+        {
+          path: "user/:userId",
+          name: "UserHomepage",
+          component: () => import("@/views/User/Homepage/index.vue"),
+          meta: { title: "用户主页" },
+        },
+        {
+          path: "user/:userId/article/:articleId",
+          name: "ArticleDetail",
+          component: () => import("@/views/User/Article/index.vue"),
+          meta: { title: "文章详情" },
+        },
+        {
+          path: "user/:userId/column/:columnId",
+          name: "Column",
+          component: () => import("@/views/User/Column/index.vue"),
+          meta: { title: "专栏详情" },
+        },
+        {
+          path: "setting",
+          name: "Setting",
+          component: () => import("@/views/Setting/index.vue"),
+          meta: { title: "个人设置" },
+        },
+        {
+          path: "message",
+          name: "Message",
+          component: () => import("@/views/Message/ConversationList.vue"),
+          meta: { title: "私信" },
+        },
+        {
+          path: "message/chat/:userId",
+          name: "ChatWindow",
+          component: () => import("@/views/Message/ChatWindow.vue"),
+          meta: { title: "聊天窗口" },
+        },
+        {
+          path: "notification",
+          name: "Notification",
+          component: () => import("@/views/Notification/index.vue"),
+          meta: { title: "消息中心" },
+        },
+        {
+          path: "account",
+          name: "Account",
+          component: () => import("@/views/Account/index.vue"),
+          redirect: "/login",
+          children: [
+            {
+              path: "/login",
+              component: () => import("@/views/Account/Login/index.vue"),
+              name: "login",
+              meta: { title: "用户登录" },
+            },
+            {
+              path: "/register",
+              component: () => import("@/views/Account/Register/index.vue"),
+              name: "register",
+              meta: { title: "用户注册" },
+            },
+            {
+              path: "/reset",
+              component: () => import("@/views/Account/Reset/index.vue"),
+              name: "reset",
+              meta: { title: "重置密码" },
+            },
+          ],
+        },
+      ],
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
+      path: "/creation",
+      name: "Creation",
+      component: () => import("@/views/Creation/index.vue"),
+      meta: { title: "创作中心" },
+      children: [
+        {
+          path: "",
+          name: "创作中心首页",
+          component: () => import("@/views/Creation/Home/index.vue"),
+        },
+        {
+          path: "articlemanage",
+          name: "创作中心文章管理",
+          component: () => import("@/views/Creation/ArticleManage/index.vue"),
+        },
+        {
+          path: "columnmanage",
+          name: "创作中心专栏管理",
+          component: () => import("@/views/Creation/ColumnManage/index.vue"),
+        },
+        {
+          path: "commentmanage",
+          name: "创作中心评论管理",
+          component: () => import("@/views/Creation/CommentManage/index.vue"),
+        },
+      ],
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
+      path: "/editor",
+      name: "Editor",
+      component: () => import("@/views/Editor/index.vue"),
+      meta: { title: "发布文章" },
     },
     {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: () => import("@/components/404.vue"),
+      meta: { title: "页面不存在" },
     },
-    {
-      path: '/post/:id',
-      name: 'Post',
-      component: Post
-    }
-  ]
-})
+  ],
+});
 
-export default router
+export default router;
