@@ -102,32 +102,6 @@ const router = createRouter({
           component: () => import("@/views/Notification/index.vue"),
           meta: { title: "消息中心" },
         },
-        {
-          path: "account",
-          name: "Account",
-          component: () => import("@/views/Account/index.vue"),
-          redirect: "/login",
-          children: [
-            {
-              path: "/login",
-              component: () => import("@/views/Account/Login/index.vue"),
-              name: "login",
-              meta: { title: "用户登录" },
-            },
-            {
-              path: "/register",
-              component: () => import("@/views/Account/Register/index.vue"),
-              name: "register",
-              meta: { title: "用户注册" },
-            },
-            {
-              path: "/reset",
-              component: () => import("@/views/Account/Reset/index.vue"),
-              name: "reset",
-              meta: { title: "重置密码" },
-            },
-          ],
-        },
       ],
     },
     {
@@ -164,6 +138,30 @@ const router = createRouter({
       component: () => import("@/views/Editor/index.vue"),
       meta: { title: "发布文章" },
     },
+    // ====================== 修改后的注册路由（独立为一级路由） ======================
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("@/views/Account/Register/index.vue"),
+      meta: { title: "用户注册" },
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: () => import("@/views/Account/Login/index.vue"),
+      meta: { title: "用户登录" },
+    },
+    {
+      path: "/reset",
+      name: "reset",
+      component: () => import("@/views/Account/Reset/index.vue"),
+      meta: { title: "重置密码" },
+    },
+    {
+      path: "/account",
+      redirect: "/login",
+    },
+    // ====================== 修改结束 ======================
     {
       path: "/:pathMatch(.*)*",
       name: "NotFound",

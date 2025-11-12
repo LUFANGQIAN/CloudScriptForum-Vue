@@ -1,7 +1,7 @@
 <template>
   <div class="biggestBox">
     <div class="box">
-      <!-- 表单区（居中） -->
+      <!-- 表单区（左边） -->
       <div class="form-section">
         <h1 class="title">欢迎回来</h1>
         <p class="subtitle">请登录您的账户以继续使用服务</p>
@@ -10,24 +10,22 @@
         <div class="tab-container">
           <div class="tab-buttons">
             <router-link to="/login" class="tab-button" :class="{ active: $route.path === '/login' }">登录</router-link>
-            <router-link to="/register" class="tab-button" :class="{ active: $route.path === '/register' }">注册</router-link>
+            <router-link to="/register" class="tab-button"
+              :class="{ active: $route.path === '/register' }">注册</router-link>
           </div>
         </div>
 
         <!-- 登录表单（使用 el-form 保持验证逻辑） -->
         <el-form :model="formData" :rules="rules" ref="formDataRef" class="form-group">
-          <!-- 用户名（改为邮箱） -->
+          <!-- 用户名 -->
           <el-form-item prop="username" class="form-item">
-            <label>邮箱地址</label>
-            <el-input
-              clearable
-              placeholder="请输入您的邮箱地址"
-              maxlength="50"
-              v-model="formData.username"
-              class="input-field-el"
-            >
+            <label>用户名</label>
+            <el-input clearable placeholder="请输入您的用户名" maxlength="50" v-model="formData.username"
+              class="input-field-el">
               <template #prefix>
-                <el-icon><User /></el-icon>
+                <el-icon>
+                  <User />
+                </el-icon>
               </template>
             </el-input>
           </el-form-item>
@@ -35,16 +33,12 @@
           <!-- 密码 -->
           <el-form-item prop="password" class="form-item">
             <label>密码</label>
-            <el-input
-              clearable
-              placeholder="请输入您的密码"
-              maxlength="20"
-              v-model="formData.password"
-              show-password
-              class="input-field-el"
-            >
+            <el-input clearable placeholder="请输入您的密码" maxlength="20" v-model="formData.password" show-password
+              class="input-field-el">
               <template #prefix>
-                <el-icon><Lock /></el-icon>
+                <el-icon>
+                  <Lock />
+                </el-icon>
               </template>
             </el-input>
           </el-form-item>
@@ -53,22 +47,15 @@
           <el-form-item prop="checkCode" class="form-item">
             <label>验证码</label>
             <div class="check-code-panel">
-              <el-input
-                placeholder="请输入验证码"
-                maxlength="6"
-                v-model="formData.checkCode"
-                class="input-field-el"
-              >
+              <el-input placeholder="请输入验证码" maxlength="6" v-model="formData.checkCode"
+                class="input-field-el VerificationCode">
                 <template #prefix>
-                  <el-icon><EditPen /></el-icon>
+                  <el-icon>
+                    <EditPen />
+                  </el-icon>
                 </template>
               </el-input>
-              <img
-                class="check-code"
-                :src="checkCodeInfo.checkCodeBase64"
-                alt="验证码"
-                @click="changeCheckCode()"
-              />
+              <img class="check-code" :src="checkCodeInfo.checkCodeBase64" alt="验证码" @click="changeCheckCode()" />
             </div>
           </el-form-item>
 
@@ -85,31 +72,26 @@
             登录账户
           </el-button>
 
-          <!-- 分割线 -->
-          <div class="login-divider">
-            <span>或使用以下方式登录</span>
-          </div>
 
-          <!-- 第三方登录（保留原 href 跳转） -->
-          <div class="social-icons">
-            <el-link underline="never" :href="giteeLogin">
-              <svg-icon name="gitee" width="40px" height="40px" color="#999" cursor="pointer" />
-            </el-link>
-            <el-link underline="never" :href="githubLogin">
-              <svg-icon name="github" width="40px" height="40px" color="#999" cursor="pointer" />
-            </el-link>
-            <el-link underline="never" :href="qqLogin">
-              <svg-icon name="qq" width="40px" height="40px" color="#999" cursor="pointer" />
-            </el-link>
-          </div>
+
         </el-form>
       </div>
+
+
+      <!-- 右边宣传图 -->
+      <div class="login_right">
+        <div class="login_right_bgc"></div>
+        <div class="login_right_middle">
+          <div class="logo"></div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </template>
 
 <script setup>
-// ====== 完全复用原始逻辑 ======
 import { giteeLogin, githubLogin, qqLogin } from "@/api/oauth";
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
@@ -211,15 +193,18 @@ onMounted(() => {
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background-color: #f9fafb; /* 保留原背景色 */
+  background-color: #f9fafb;
+  /* 保留原背景色 */
   padding: 20px;
   box-sizing: border-box;
 }
 
 .box {
   width: 100%;
-  max-width: 560px; /* 约等于 480px + padding */
-  padding: 40px;
+  max-width: 1100px;
+  display: flex;
+  height: 660px;
+  /* 约等于 480px + padding */
   background: white;
   border-radius: 20px;
   box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 10px 25px -5px rgba(0, 0, 0, 0.1);
@@ -227,6 +212,9 @@ onMounted(() => {
 
 .form-section {
   width: 100%;
+  max-width: 550px;
+  padding: 33px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,22 +222,26 @@ onMounted(() => {
 
 .title {
   font-family: Roboto, sans-serif;
+  margin-left: -360px;
   font-size: 30px;
   font-weight: bold;
   color: #111827;
-  margin-bottom: 8px;
+  margin-top: -2px;
+  margin-bottom: -4px;
 }
 
 .subtitle {
   font-size: 16px;
   color: #6b7280;
+  margin-left: -258px;
   margin-bottom: 32px;
 }
 
 /* ========== Tab ========== */
 .tab-container {
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 25px;
+  margin-top: -15px;
 }
 
 .tab-buttons {
@@ -287,7 +279,7 @@ onMounted(() => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: px;
 }
 
 .form-item {
@@ -304,7 +296,9 @@ onMounted(() => {
 
 /* 覆盖 el-input 样式以匹配新设计 */
 :deep(.input-field-el .el-input__wrapper) {
-  padding: 12px 12px 12px 36px !important;
+  width: 480px;
+  height: 50px;
+  padding: 12px 12px 12px 14px !important;
   background-color: #f9fafb !important;
   border: 1px solid #d1d5db !important;
   border-radius: 8px !important;
@@ -322,6 +316,11 @@ onMounted(() => {
   color: #9ca3af;
 }
 
+/* 验证码 */
+.VerificationCode {
+  width: 370px;
+}
+
 /* 验证码面板 */
 .check-code-panel {
   display: flex;
@@ -330,11 +329,11 @@ onMounted(() => {
 
 .check-code {
   width: 100px;
-  height: 40px;
+  height: 50px;
   margin-left: 10px;
   cursor: pointer;
   border: 1px solid #dcdfe6;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 /* ========== 记住密码 ========== */
@@ -372,35 +371,14 @@ onMounted(() => {
   color: white;
 }
 
-/* ========== 分割线 ========== */
-.login-divider {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 12px;
-  font-size: 12px;
-  color: #6b7280;
-  margin: 24px 0 16px;
+
+/* 右侧宣传图 */
+.login_right {
+  width: 550px;
+  height: 660px;
 }
 
-.login-divider::before,
-.login-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background-color: #e5e7eb;
-}
-
-/* ========== 社交图标 ========== */
-.social-icons {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 8px;
-}
-
-.social-icons svg {
-  cursor: pointer;
+.login_right_bgc {
+  background-image: url(..\src\views\Account\Account_img\login_right_bgc.png)
 }
 </style>
