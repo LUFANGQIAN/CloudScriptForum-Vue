@@ -102,7 +102,34 @@ const router = createRouter({
           component: () => import("@/views/Notification/index.vue"),
           meta: { title: "消息中心" },
         },
+        {
+          path: "account",
+          name: "Account",
+          component: () => import("@/views/Account/index.vue"),
+          redirect: "/login",
+          children: [
+
+            {
+              path: "/register",
+              component: () => import("@/views/Account/Register/index.vue"),
+              name: "register",
+              meta: { title: "用户注册" },
+            },
+            {
+              path: "/reset",
+              component: () => import("@/views/Account/Reset/index.vue"),
+              name: "reset",
+              meta: { title: "重置密码" },
+            },
+          ],
+        },
       ],
+    },
+    {
+      path: "/login",
+      component: () => import("@/views/Account/Login/index.vue"),
+      name: "login",
+      meta: { title: "用户登录" },
     },
     {
       path: "/creation",
