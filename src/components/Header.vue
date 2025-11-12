@@ -1,42 +1,44 @@
 <template>
-  <el-menu :default-active="activeIndex" router class="pc-menu" mode="horizontal" @select="handleSelect" :ellipsis="false" :class="{ hidden: !isVisible }">
+  <el-menu :default-active="activeIndex" router class="pc-menu" mode="horizontal" @select="handleSelect"
+    :ellipsis="false" :class="{ hidden: !isVisible }">
     <!-- 移动端菜单按钮 -->
     <div class="mobile-menu-button" @click="toggleMobileMenu">
       <svg-icon name="menu" width="50px" height="50px" cursor="pointer" />
     </div>
-    <router-link class="logo" to="/"><el-text size="large" class="logo-text">CloudScript</el-text></router-link>
+    <router-link class="logo" to="/"><el-text size="large" class="logo-text">云章论坛</el-text></router-link>
     <el-menu-item index="/" class="menu-item">
-      <el-icon><House /></el-icon>
-      <span class="menu-text">首页</span>
+      <span class="menu-text">主页</span>
     </el-menu-item>
     <el-menu-item index="/article" class="menu-item">
-      <el-icon><Message /></el-icon>
-      <span class="menu-text">文章</span>
+      <span class="menu-text">发现</span>
     </el-menu-item>
     <el-menu-item index="/album" class="menu-item">
-      <el-icon><Picture /></el-icon>
-      <span class="menu-text">相册</span>
+      <span class="menu-text">社区</span>
     </el-menu-item>
     <el-menu-item index="/link" class="menu-item">
-      <el-icon><Link /></el-icon>
-      <span class="menu-text">友链</span>
+      <span class="menu-text">帮助</span>
     </el-menu-item>
     <el-menu-item index="/creation" class="menu-item">
-      <el-icon><MagicStick /></el-icon>
       <span class="menu-text">创作中心</span>
     </el-menu-item>
     <div class="right">
       <div class="search" @click="handleSearch">
-        <el-icon size="29px" color="var(--el-text-color-primary)"><Search /></el-icon>
+        <el-icon size="29px" color="var(--el-text-color-primary)">
+          <Search />
+        </el-icon>
       </div>
       <div class="message-icon" @click="goToMessage" v-if="user">
         <el-badge :value="messageStore.totalUnreadCount" :max="99" :hidden="messageStore.totalUnreadCount === 0">
-          <el-icon size="32px" color="var(--el-text-color-primary)"><ChatDotRound /></el-icon>
+          <el-icon size="32px" color="var(--el-text-color-primary)">
+            <ChatDotRound />
+          </el-icon>
         </el-badge>
       </div>
       <div class="notification-icon" @click="goToNotification" v-if="user">
         <el-badge :value="notificationUnreadCount" :max="99" :hidden="notificationUnreadCount === 0">
-          <el-icon size="31px" color="var(--el-text-color-primary)"><Bell /></el-icon>
+          <el-icon size="31px" color="var(--el-text-color-primary)">
+            <Bell />
+          </el-icon>
         </el-badge>
       </div>
       <Dark />
@@ -72,15 +74,21 @@
 
               <!-- 操作按钮 -->
               <el-dropdown-item @click="goToUserHomepage" class="action-item">
-                <el-icon><User /></el-icon>
+                <el-icon>
+                  <User />
+                </el-icon>
                 <span>个人主页</span>
               </el-dropdown-item>
               <el-dropdown-item @click="goToSetting" class="action-item">
-                <el-icon><Setting /></el-icon>
+                <el-icon>
+                  <Setting />
+                </el-icon>
                 <span>个人设置</span>
               </el-dropdown-item>
               <el-dropdown-item @click="logout" class="action-item">
-                <el-icon><SwitchButton /></el-icon>
+                <el-icon>
+                  <SwitchButton />
+                </el-icon>
                 <span>退出登录</span>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -97,23 +105,18 @@
       <div v-show="isMobileMenuVisible" class="mobile-menu-overlay" @click="closeMobileMenu">
         <el-menu class="mobile-menu" router @click.stop @select="closeMobileMenu">
           <el-menu-item index="/" class="menu-item">
-            <el-icon><House /></el-icon>
-            <span class="menu-text">首页</span>
+            <span class="menu-text">主页</span>
           </el-menu-item>
           <el-menu-item index="/article" class="menu-item">
-            <el-icon><Message /></el-icon>
-            <span class="menu-text">文章</span>
+            <span class="menu-text">发现</span>
           </el-menu-item>
-          <el-menu-item index="/album/square" class="menu-item">
-            <el-icon><Picture /></el-icon>
-            <span class="menu-text">相册</span>
+          <el-menu-item index="/album" class="menu-item">
+            <span class="menu-text">社区</span>
           </el-menu-item>
           <el-menu-item index="/link" class="menu-item">
-            <el-icon><Link /></el-icon>
-            <span class="menu-text">友链</span>
+            <span class="menu-text">帮助</span>
           </el-menu-item>
           <el-menu-item index="/creation" class="menu-item">
-            <el-icon><MagicStick /></el-icon>
             <span class="menu-text">创作中心</span>
           </el-menu-item>
         </el-menu>
@@ -412,11 +415,12 @@ onBeforeUnmount(() => {
   WebSocketClient.off("NEW_NOTIFICATION", handleNewNotification);
   WebSocketClient.off("open", handleWebSocketOpen);
 });
+
 </script>
 
 <style lang="scss" scoped>
 .pc-menu {
-  height: 48px;
+  height: 67px;
   width: 100%;
   padding: 0 10px 0 10px;
   display: flex;
@@ -430,7 +434,7 @@ onBeforeUnmount(() => {
   border: none;
 
   /* 90% 透明背景 + 毛玻璃效果 */
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.001), rgba(0, 0, 0, 0.001)), #FFFFFF;
   backdrop-filter: blur(10px);
 
   --el-menu-bg-color: transparent;
@@ -447,9 +451,12 @@ onBeforeUnmount(() => {
 
     /* Logo文字 */
     .logo-text {
-      font-size: 26px !important;
-      color: #3d92eb;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Pacifico;
+      font-size: 24px;
+      font-weight: normal;
+      line-height: 32px;
+      letter-spacing: normal;
+      color: #F97316;
       letter-spacing: 1px;
       position: relative;
       transition: all 0.3s ease;
@@ -457,10 +464,10 @@ onBeforeUnmount(() => {
       &::after {
         content: "";
         position: absolute;
-        bottom: -5px;
+        bottom: -16px;
         left: 0;
         width: 100%;
-        height: 3px;
+        height: 5px;
         background: linear-gradient(90deg, #fbbf24, #f59e0b);
         border-radius: 3px;
         transform: scaleX(0);
@@ -483,7 +490,6 @@ onBeforeUnmount(() => {
   .menu-item {
     .menu-text {
       font-size: 18px;
-      margin-left: 5px;
     }
   }
 
@@ -493,6 +499,7 @@ onBeforeUnmount(() => {
     margin-left: auto;
     justify-content: center;
     align-items: center;
+
     .search {
       display: flex;
       align-items: center;
@@ -500,6 +507,7 @@ onBeforeUnmount(() => {
       margin-right: 10px;
       cursor: pointer;
     }
+
     .message-icon {
       display: flex;
       align-items: center;
@@ -515,6 +523,7 @@ onBeforeUnmount(() => {
         border: none;
       }
     }
+
     .notification-icon {
       display: flex;
       align-items: center;
@@ -530,9 +539,11 @@ onBeforeUnmount(() => {
         border: none;
       }
     }
+
     .user-info {
       display: flex;
       align-items: center;
+
       .nickname {
         font-size: 18px !important;
         font-weight: 600;
@@ -553,6 +564,7 @@ onBeforeUnmount(() => {
         }
       }
     }
+
     .login {
       display: flex;
       justify-content: center;
@@ -567,6 +579,7 @@ onBeforeUnmount(() => {
       cursor: pointer;
     }
   }
+
   // 移动端菜单按钮
   .mobile-menu-button {
     // margin-right: 10px;
@@ -582,6 +595,7 @@ onBeforeUnmount(() => {
 
   // 用户信息区域
   .user-info-section {
+
     // 用户名区域
     .user-name {
       text-align: center;
@@ -663,6 +677,7 @@ onBeforeUnmount(() => {
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
   display: flex;
+
   .mobile-menu {
     width: 150px;
     display: flex;
@@ -670,6 +685,7 @@ onBeforeUnmount(() => {
     justify-content: center;
     align-items: flex-start; // 菜单项水平左对齐
     background-color: var(--el-bg-color);
+
     .el-menu-item {
       width: 100%;
     }
@@ -691,14 +707,18 @@ onBeforeUnmount(() => {
 @media (max-width: 870px) {
   .pc-menu {
     padding: 0 5px 0 0;
+
     .menu-item {
       display: none; // 隐藏PC端菜单
     }
+
     .mobile-menu-button {
       display: block; // 显示移动端菜单按钮
     }
+
     .logo {
       margin-right: 0;
+
       .logo-text {
         font-size: 20px !important;
       }

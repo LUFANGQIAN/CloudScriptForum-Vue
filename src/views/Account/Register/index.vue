@@ -133,7 +133,7 @@ const formData = ref({
   password: "",
   repeatPassword: "",
   email: "",
-  checkCode: "",
+  emailCheckCode: "", // 注意：字段名与规则一致
 });
 
 // 节流函数
@@ -150,70 +150,42 @@ function throttle(func, delay) {
   };
 }
 
-// 验证用户名
+// 验证函数（保持不变）
 const validateUsername = (rule, value, callback) => {
-  if (value === "") {
-    callback(new Error("请输入用户名"));
-  } else if (!/^[a-zA-Z0-9]+$/.test(value)) {
-    callback(new Error("用户名只能是英文和数字"));
-  } else if (value.length < 4 || value.length > 20) {
-    callback(new Error("用户名的长度必须在 4-20 个字符之间"));
-  } else {
-    callback();
-  }
+  if (value === "") callback(new Error("请输入用户名"));
+  else if (!/^[a-zA-Z0-9]+$/.test(value)) callback(new Error("用户名只能是英文和数字"));
+  else if (value.length < 4 || value.length > 20) callback(new Error("用户名的长度必须在 4-20 个字符之间"));
+  else callback();
 };
 
-// 验证密码字符类型
 const validatePasswordCharacters = (rule, value, callback) => {
-  if (value === "") {
-    callback(new Error("请输入密码"));
-  } else if (!/^[a-zA-Z0-9@]+$/.test(value)) {
-    callback(new Error("密码只能包含英文、数字和@符号"));
-  } else if (value.length < 6 || value.length > 20) {
-    callback(new Error("密码的长度必须在 6-20 个字符之间"));
-  } else {
-    callback();
-  }
+  if (value === "") callback(new Error("请输入密码"));
+  else if (!/^[a-zA-Z0-9@]+$/.test(value)) callback(new Error("密码只能包含英文、数字和@符号"));
+  else if (value.length < 6 || value.length > 20) callback(new Error("密码的长度必须在 6-20 个字符之间"));
+  else callback();
 };
 
-// 验证重复密码
 const validatePassword = (rule, value, callback) => {
-  if (value === "") {
-    callback(new Error("请再次输入密码"));
-  } else if (value !== formData.value.password) {
-    callback(new Error("两次输入的密码不一致"));
-  } else {
-    callback();
-  }
+  if (value === "") callback(new Error("请再次输入密码"));
+  else if (value !== formData.value.password) callback(new Error("两次输入的密码不一致"));
+  else callback();
 };
 
 const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-// 验证邮箱格式
 const validateEmailFormat = (rule, value, callback) => {
-  if (!value) {
-    callback(new Error("请输入邮箱"));
-  } else if (!EmailRegex.test(value)) {
-    callback(new Error("请输入合法的邮箱"));
-  } else {
-    callback();
-  }
+  if (!value) callback(new Error("请输入邮箱"));
+  else if (!EmailRegex.test(value)) callback(new Error("请输入合法的邮箱"));
+  else callback();
 };
 
-// 验证邮箱验证码
 const validateEmailCheckCode = (rule, value, callback) => {
-  if (!value) {
-    callback(new Error("请输入获取的验证码"));
-  } else if (!/^\d{6}$/.test(value)) {
-    callback(new Error("验证码必须是6位数字"));
-  } else {
-    callback();
-  }
+  if (!value) callback(new Error("请输入获取的验证码"));
+  else if (!/^\d{6}$/.test(value)) callback(new Error("验证码必须是6位数字"));
+  else callback();
 };
 
-// 判断邮箱是否正确
 const isEmailValid = computed(() => {
-  // 确保邮箱不为空且符合正则表达式
   return formData.value.email && EmailRegex.test(formData.value.email);
 });
 
@@ -225,23 +197,21 @@ const rules = {
   emailCheckCode: [{ validator: validateEmailCheckCode, trigger: ["blur", "change"] }],
 };
 
-// 发送注册邮箱验证码
 function sendEmailBtn() {
   if (isEmailValid.value) {
-    const EmailDto = ref({
-      email: formData.value.email,
-      type: "register",
-    });
+    const EmailDto = { email: formData.value.email, type: "register" };
     waitTime.value = 60;
-    sendEmail(EmailDto.value).then(() => {
+    sendEmail(EmailDto).then(() => {
       ElMessage.success(`验证码已发送到邮箱：${formData.value.email}，请注意查收`);
       const interval = setInterval(() => {
-        if (waitTime.value === 0) {
+        if (waitTime.value <= 0) {
           clearInterval(interval);
         } else {
           waitTime.value--;
         }
       }, 1000);
+    }).catch(() => {
+      waitTime.value = 0; // 发送失败重置
     });
   } else {
     ElMessage.warning("请输入正确的邮箱");
@@ -330,6 +300,21 @@ h2 {
 
 .check-code-panel {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 63px;
+  color: white;
+}
+
+/* ========== 右侧宣传区 ========== */
+.right {
+  position: relative;
+  width: 550px;
+  height: 660px;
+}
+
+.promo-section {
+  background-image: url(../../../assets/img/login_right_bgc.png);
   width: 100%;
 
   .checkCode {
