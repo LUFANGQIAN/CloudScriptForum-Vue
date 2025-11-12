@@ -298,7 +298,6 @@ const throttledLoginBtn = throttle(loginBtn, 2000); // 2000ms 内只允许点一
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: px;
 }
 
 .form-item {
