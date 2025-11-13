@@ -6,7 +6,8 @@
         <span class="history-count">共 {{ total }} 条浏览记录</span>
       </div>
       <div class="control-right">
-        <el-button type="danger" size="small" :icon="Delete" :loading="clearLoading" :disabled="historyList.length === 0" @click="handleClearHistory"> 清空历史 </el-button>
+        <el-button type="danger" size="small" :icon="Delete" :loading="clearLoading"
+          :disabled="historyList.length === 0" @click="handleClearHistory"> 清空历史 </el-button>
       </div>
     </div>
 
@@ -35,7 +36,8 @@
 
       <!-- 历史记录列表 -->
       <div v-else class="history-list">
-        <div v-for="history in historyList" :key="history.id" class="history-item" @click="goToArticle(history.articleId)">
+        <div v-for="history in historyList" :key="history.id" class="history-item"
+          @click="goToArticle(history.articleId)">
           <!-- 文章封面 -->
           <el-image :src="history.coverUrl" class="history-cover">
             <template #placeholder>
@@ -43,7 +45,9 @@
             </template>
             <template #error>
               <div class="error">
-                <el-icon><Picture /></el-icon>
+                <el-icon>
+                  <Picture />
+                </el-icon>
               </div>
             </template>
           </el-image>
@@ -60,7 +64,9 @@
 
             <!-- 浏览时间 -->
             <div class="view-time">
-              <el-icon class="time-icon"><Clock /></el-icon>
+              <el-icon class="time-icon">
+                <Clock />
+              </el-icon>
               <span>{{ formatViewTime(history.viewTime) }}</span>
             </div>
           </div>
@@ -240,7 +246,7 @@ defineExpose({
   background: var(--el-bg-color-page);
   border-radius: 8px;
   border: 1px solid var(--el-border-color);
-  box-shadow: 0 2px 12px var(--el-border-color-light);
+  box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
   // 操作栏
@@ -446,6 +452,7 @@ defineExpose({
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

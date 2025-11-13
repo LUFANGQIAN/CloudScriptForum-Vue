@@ -9,6 +9,47 @@
     <div class="content-section">
       <div class="container">
         <div class="content-layout">
+          <div class="user-stats-card" v-if="!userLoading && userInfo">
+            <!-- 用户统计信息 -->
+            <div class="user-stats">
+              <div class="stat-item word">
+                <span class="stat-icon" style="color: #409eff;">
+                  <el-icon>
+                    <Document />
+                  </el-icon>
+                </span>
+                <span class="stat-label">文章数量</span>
+                <span class="stat-number">{{ userInfo.articleCount || 0 }}</span>
+              </div>
+              <div class="stat-item nember">
+                <span class="stat-icon" style="color: #e67dfe;">
+                  <el-icon>
+                    <User />
+                  </el-icon>
+                </span>
+                <span class="stat-label">粉丝数量</span>
+                <span class="stat-number">{{ userInfo.fansCount || 0 }}</span>
+              </div>
+              <div class="stat-item gaunzhu_nember">
+                <span class="stat-icon" style="color: #67c23a;">
+                  <el-icon>
+                    <Star />
+                  </el-icon>
+                </span>
+                <span class="stat-label">关注数量</span>
+                <span class="stat-number">{{ userInfo.followCount || 0 }}</span>
+              </div>
+              <div class="stat-item reader">
+                <span class="stat-icon" style="color: #f56c6c;">
+                  <el-icon>
+                    <Reading />
+                  </el-icon>
+                </span>
+                <span class="stat-label">阅读数量</span>
+                <span class="stat-number">{{ totalViews }}</span>
+              </div>
+            </div>
+          </div>
           <!-- 左侧主要内容 -->
           <div class="main-content">
             <!-- 标签页切换 -->
@@ -49,35 +90,40 @@
                 <HistoryList v-else-if="activeTab === 'history'" key="history" ref="historyListRef" />
               </transition>
             </div>
-          </div>
 
-          <!-- 右侧边栏 -->
-          <div class="sidebar">
-            <!-- 个人成就 -->
-            <div class="sidebar-card">
-              <h4 class="card-title">个人成就</h4>
-              <div class="achievements">
-                <div class="achievement-item" v-if="userInfo?.articleCount >= 10">
-                  <el-icon class="achievement-icon">
-                    <Trophy />
-                  </el-icon>
-                  <span>创作达人</span>
-                </div>
-                <div class="achievement-item" v-if="totalViews >= 1000">
-                  <el-icon class="achievement-icon">
-                    <View />
-                  </el-icon>
-                  <span>阅读之星</span>
-                </div>
-                <div class="achievement-item" v-if="userInfo?.fansCount >= 100">
-                  <el-icon class="achievement-icon">
-                    <User />
-                  </el-icon>
-                  <span>人气作者</span>
+            <!-- 右侧边栏 -->
+            <div class="sidebar">
+              <!-- 个人成就 -->
+              <div class="sidebar-card">
+                <h4 class="card-title">个人成就</h4>
+                <div class="achievements">
+                  <div class="achievement-item" v-if="userInfo?.articleCount <= 10">
+                    <div class="achievement_item_bgi"></div>
+                    <div class="achievement_item_Introduction">
+                      <div class="achievement_name">开创者</div>
+                      <div class="Introduction">原始股好不好，开创者，第一版，特殊成就</div>
+                    </div>
+                  </div>
+                  <div class="achievement-item" v-if="totalViews <= 1000">
+                    <div class="achievement_item_bgi"></div>
+                    <div class="achievement_item_Introduction">
+                      <div class="achievement_name">领导者</div>
+                      <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
+                    </div>
+                  </div>
+                  <div class="achievement-item" v-if="userInfo?.fansCount <= 100">
+                    <div class="achievement_item_bgi"></div>
+                    <div class="achievement_item_Introduction">
+                      <div class="achievement_name">领导者</div>
+                      <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
     </div>
@@ -583,12 +629,15 @@ $bg-color: #f5f7fa;
 
 // 工具类
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 10px;
 }
 
 // 用户主页容器
+
+
+
 .user-homepage {
   width: 1440px;
   min-height: 100vh; // 确保至少占满整个视口高度
@@ -596,28 +645,32 @@ $bg-color: #f5f7fa;
   margin-top: 10px;
   margin-left: 240px;
 
+
   // 内容区域
   .content-section {
     padding: 10px 0 40px 0; // 增加底部内边距，避免内容紧贴底部
 
     .content-layout {
-      display: grid;
+      margin-top: 24px;
       grid-template-columns: 1fr 300px;
-      gap: 20px;
+      gap: 24px;
     }
   }
 
   // 主要内容区域
   .main-content {
+    margin-top: 24px;
 
     // 标签页切换
     .tab-filters {
+      width: 1040px;
       background: var(--el-bg-color-page);
       border-radius: 8px;
       padding: 15px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      margin-left: 10px;
       border: 1px solid var(--el-border-color);
-      box-shadow: 0 2px 12px var(--el-border-color-light);
+      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
       :deep(.el-tabs__header) {
         margin: 0;
@@ -627,19 +680,43 @@ $bg-color: #f5f7fa;
         display: none;
       }
     }
+
   }
+
+  @media (max-width: 768px) {
+    .user-homepage {
+      .main-content {
+        .user-stats-card {
+          padding: 10px;
+          gap: 8px;
+          flex-wrap: wrap;
+
+          .stat-item {
+            flex: 1 1 45%;
+            min-width: 80px;
+          }
+        }
+      }
+    }
+  }
+
+
 
   // 右侧边栏
   .sidebar {
+    position: absolute;
+    left: 1316px;
+    top: 409px;
+
 
     // 侧边栏卡片
     .sidebar-card {
+      width: 336px;
       background: var(--el-bg-color-page);
       border-radius: 8px;
       padding: 20px;
-      margin-bottom: 20px;
       border: 1px solid var(--el-border-color);
-      box-shadow: 0 2px 12px var(--el-border-color-light);
+      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
       .card-title {
         font-size: 16px;
@@ -657,12 +734,15 @@ $bg-color: #f5f7fa;
         gap: 12px;
 
         .achievement-item {
+          width: 304px;
+          height: 80px;
+          border-radius: 8px;
+          /* 辅色背景色2 */
+          background: #F3E8FF;
           display: flex;
           align-items: center;
           gap: 8px;
           padding: 8px 12px;
-          background-color: var(--el-bg-color-page);
-          border-radius: 6px;
 
           .achievement-icon {
             color: var(--el-color-primary);
@@ -674,11 +754,29 @@ $bg-color: #f5f7fa;
           }
         }
       }
+
+
+      // 个人主页里面的内容
+      .achievement_item_bgi {
+        background-image: url(../../../assets/img/achievement_item_bgi.png);
+        width: 48px;
+        height: 48px;
+      }
+
+
+
     }
   }
 
+
+
+
+
   // 标签页内容容器 - 固定高度防止抖动
   .tab-content-container {
+    position: absolute;
+    width: 1040px;
+    margin-left: 10px;
     min-height: 400px; // 减少最小高度，避免出现过多空白区域
     position: relative;
 
@@ -703,6 +801,90 @@ $bg-color: #f5f7fa;
 .tab-fade-enter-to,
 .tab-fade-leave-from {
   opacity: 1;
+}
+
+// 用户统计区域
+.user-stats-card {
+  width: 1392px;
+  height: 92px;
+  gap: 16px;
+  padding: 0;
+  margin-left: px;
+  margin-bottom: 10px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+
+  .stat-item {
+    flex: 1;
+    width: 336px;
+    height: 92px;
+    padding: 12px 16px;
+    background-color: var(--el-bg-color-page);
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--el-border-color-light);
+    text-align: center;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .stat-icon {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+      color: currentColor;
+      font-size: 14px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--el-text-color-secondary);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .stat-number {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--el-text-color-primary);
+      display: block;
+    }
+  }
+
+  .word {
+    position: absolute;
+    margin-left: 10px;
+  }
+
+  .nember {
+    position: absolute;
+    left: 600px;
+    margin-left: 15px;
+
+  }
+
+  .gaunzhu_nember {
+    position: absolute;
+    left: 950px;
+    margin-left: 15px;
+
+  }
+
+  .reader {
+    position: absolute;
+    left: 1300px;
+    margin-left: 15px;
+
+  }
+
+
 }
 
 // 响应式设计
@@ -730,6 +912,8 @@ $bg-color: #f5f7fa;
 
     .main-content {
       .tab-filters {
+        width: 1040px;
+        height: 55px;
         padding: 0px 10px 10px 10px;
         margin-bottom: 5px;
       }
@@ -737,6 +921,8 @@ $bg-color: #f5f7fa;
 
     // 移动端调整标签页内容容器高度
     .tab-content-container {
+      position: absolute;
+      width: 1040px;
       min-height: 300px; // 移动端进一步减少高度，避免出现过多空白
     }
 

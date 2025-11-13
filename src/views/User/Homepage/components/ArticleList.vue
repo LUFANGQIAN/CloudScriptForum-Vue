@@ -43,7 +43,8 @@
       </div>
 
       <div v-else class="article-list">
-        <div v-for="article in articleList" :key="article.id" class="article-item" @click="handleArticleClick(article.id)">
+        <div v-for="article in articleList" :key="article.id" class="article-item"
+          @click="handleArticleClick(article.id)">
           <!-- 文章封面 -->
           <el-image :src="article.coverUrl || ''" class="article-cover">
             <template #placeholder>
@@ -68,7 +69,8 @@
               <!-- 第一行：文章类型、审核状态、发布时间 -->
               <div class="article-meta-primary">
                 <span class="article-type">{{ getArticleType(article.type) }}</span>
-                <span v-if="isCurrentUser && article.examineStatus !== 1" class="article-examine-status" :class="'status-' + article.examineStatus">
+                <span v-if="isCurrentUser && article.examineStatus !== 1" class="article-examine-status"
+                  :class="'status-' + article.examineStatus">
                   {{ getExamineStatus(article.examineStatus) }}
                 </span>
                 <span class="article-date">{{ article.createTime }}</span>
@@ -206,9 +208,9 @@ $bg-color: #f5f7fa;
     background: var(--el-bg-color-page);
     border-radius: 8px;
     padding: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     border: 1px solid var(--el-border-color);
-    box-shadow: 0 2px 12px var(--el-border-color-light);
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
     // 筛选控件整体样式
     .filter-controls {
@@ -251,7 +253,7 @@ $bg-color: #f5f7fa;
   border-radius: 8px;
   padding: 20px;
   border: 1px solid var(--el-border-color);
-  box-shadow: 0 2px 12px var(--el-border-color-light);
+  box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   min-height: 580px; // 设置最小高度，与父容器一致
   height: 100%; // 占据父容器的完整高度
 

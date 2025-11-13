@@ -24,8 +24,10 @@
                 <div class="user-details">
                   <h2 class="username">{{ userInfo.nickname }}</h2>
                   <div class="user-intro-container">
-                    <p class="user-intro" :class="{ expanded: isIntroExpanded }">{{ userInfo.introduction || "这个人很懒，什么都没写~" }}</p>
-                    <button v-if="userInfo.introduction && userInfo.introduction.length > 50" class="intro-expand-btn" @click="toggleIntroExpand">
+                    <p class="user-intro" :class="{ expanded: isIntroExpanded }">{{ userInfo.introduction ||
+                      "这个人很懒，什么都没写~" }}</p>
+                    <button v-if="userInfo.introduction && userInfo.introduction.length > 50" class="intro-expand-btn"
+                      @click="toggleIntroExpand">
                       <el-icon>
                         <ArrowDown v-if="!isIntroExpanded" />
                         <ArrowUp v-else />
@@ -39,29 +41,12 @@
                 </div>
               </div>
 
-              <!-- 用户统计信息 -->
-              <div class="user-stats">
-                <div class="stat-item">
-                  <span class="stat-number">{{ userInfo.articleCount || 0 }}</span>
-                  <span class="stat-label">文章</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">{{ userInfo.fansCount || 0 }}</span>
-                  <span class="stat-label">粉丝</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">{{ userInfo.followCount || 0 }}</span>
-                  <span class="stat-label">关注</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">{{ totalViews }}</span>
-                  <span class="stat-label">阅读量</span>
-                </div>
-              </div>
 
               <!-- 操作按钮 -->
               <div class="user-actions" v-if="!isCurrentUser">
-                <el-button :type="isFollowed ? 'default' : 'primary'" :icon="isFollowed ? null : Plus" @click="handleFollow" :loading="followLoading" :class="{ 'followed-btn': isFollowed }" @mouseenter="handleFollowButtonHover(true)" @mouseleave="handleFollowButtonHover(false)">
+                <el-button :type="isFollowed ? 'default' : 'primary'" :icon="isFollowed ? null : Plus"
+                  @click="handleFollow" :loading="followLoading" :class="{ 'followed-btn': isFollowed }"
+                  @mouseenter="handleFollowButtonHover(true)" @mouseleave="handleFollowButtonHover(false)">
                   {{ followButtonText }}
                 </el-button>
                 <el-button :icon="Message" @click="handleMessage">私信</el-button>
@@ -155,7 +140,7 @@ $bg-color: #f5f7fa;
 
 // 工具类
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 10px;
 }
@@ -173,6 +158,7 @@ $bg-color: #f5f7fa;
     padding: 30px;
     border: 1px solid var(--el-border-color);
     box-shadow: 0 2px 12px var(--el-border-color-light);
+    background-image: url(../../../../assets/img/user_bgc.png);
 
     // 骨架屏样式
     .skeleton-profile {
@@ -187,12 +173,13 @@ $bg-color: #f5f7fa;
 
     // 用户信息内容
     .user-profile-content {
+
       // 用户基本信息
       .user-basic-info {
         display: flex;
         align-items: center;
         gap: 24px;
-        margin-bottom: 30px;
+        margin-top: 10px;
 
         .user-avatar {
           border: 4px solid rgba(255, 255, 255, 0.3);
@@ -200,15 +187,16 @@ $bg-color: #f5f7fa;
         }
 
         .user-details {
+          margin-top: 8px;
           flex: 1;
           min-width: 0; // 允许flex子元素收缩到内容宽度以下
           overflow: hidden; // 防止内容溢出
 
           .username {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            margin: 0 0 8px 0;
-            color: var(--el-text-color-primary);
+            margin: 0 0 12px 0;
+            color: #fff;
           }
 
           // 个人介绍容器
@@ -220,7 +208,7 @@ $bg-color: #f5f7fa;
             .user-intro {
               font-size: 14px;
               margin: 0;
-              color: var(--el-text-color-primary);
+              color: #fff;
               line-height: 1;
               word-wrap: break-word;
               word-break: break-all;
@@ -288,7 +276,7 @@ $bg-color: #f5f7fa;
 
           .user-meta {
             font-size: 13px;
-            color: var(--el-text-color-regular);
+            color: #fff;
             display: flex;
             gap: 10px;
 
@@ -388,9 +376,11 @@ $bg-color: #f5f7fa;
 
     .user-profile-card {
       padding: 10px;
+
       .user-profile-content {
         .user-basic-info {
           margin-bottom: 5px;
+
           .user-avatar {
             width: 70px;
             height: 70px;
