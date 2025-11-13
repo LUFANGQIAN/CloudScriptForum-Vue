@@ -37,9 +37,12 @@ request.interceptors.request.use(
   }
 );
 
+
+
 // 配置响应拦截器
 request.interceptors.response.use(
   (response) => {
+    console.log(response)
     let { code, msg } = response.data;
     if (code == 200) {
       if (msg) {
@@ -48,7 +51,7 @@ request.interceptors.response.use(
       return response;
     } else {
       // 响应失败的处理 401 400
-      ElMessage.error(msg);
+      ElMessage.error(msg)
     }
     return Promise.reject(response.data);
   },

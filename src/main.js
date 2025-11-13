@@ -9,6 +9,10 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
+// message 提示框样式丢失问题
+import 'element-plus/theme-chalk/src/message-box.scss'
+import 'element-plus/theme-chalk/src/message.scss'
+
 // pinia持久化插件
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 const pinia = createPinia();
@@ -16,6 +20,8 @@ pinia.use(piniaPluginPersistedstate);
 
 // 夜间模式
 import "element-plus/theme-chalk/dark/css-vars.css";
+
+
 
 const app = createApp(App);
 
