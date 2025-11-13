@@ -34,6 +34,12 @@ const router = createRouter({
           meta: { title: "友链" },
         },
         {
+          path: "about",
+          name: "About",
+          component: () => import("@/views/About/index.vue"),
+          meta: { title: "关于" },
+        },
+        {
           path: "album",
           name: "Album",
           component: () => import("@/views/Album/index.vue"),

@@ -1,7 +1,9 @@
 <template>
   <div class="user-homepage">
     <!-- 用户信息区域 -->
-    <UserProfileCard :user-info="userInfo" :user-loading="userLoading" :total-views="totalViews" :is-current-user="isCurrentUser" :is-followed="isFollowed" :follow-loading="followLoading" @follow="handleFollow" @message="handleMessage" />
+    <UserProfileCard :user-info="userInfo" :user-loading="userLoading" :total-views="totalViews"
+      :is-current-user="isCurrentUser" :is-followed="isFollowed" :follow-loading="followLoading" @follow="handleFollow"
+      @message="handleMessage" />
 
     <!-- 内容区域 -->
     <div class="content-section">
@@ -26,25 +28,19 @@
               <!-- 内容切换过渡动画 -->
               <transition name="tab-fade" mode="out-in">
                 <!-- 文章列表 -->
-                <ArticleList
-                  v-if="activeTab === 'article'"
-                  key="article"
-                  :article-list="articleList"
-                  :article-loading="articleLoading"
-                  :loading-more="loadingMore"
-                  :is-current-user="isCurrentUser"
-                  :sort-type="sortType"
-                  :visibility-type="visibilityType"
-                  @article-click="goToArticle"
-                  @sort-change="handleSortChange"
-                  @visibility-change="handleVisibilityChange"
-                />
+                <ArticleList v-if="activeTab === 'article'" key="article" :article-list="articleList"
+                  :article-loading="articleLoading" :loading-more="loadingMore" :is-current-user="isCurrentUser"
+                  :sort-type="sortType" :visibility-type="visibilityType" @article-click="goToArticle"
+                  @sort-change="handleSortChange" @visibility-change="handleVisibilityChange" />
 
                 <!-- 专栏列表 -->
-                <ColumnList v-else-if="activeTab === 'column'" key="column" :column-list="columnList" :column-loading="columnLoading" :loading-more="loadingMore" @column-click="goToColumn" />
+                <ColumnList v-else-if="activeTab === 'column'" key="column" :column-list="columnList"
+                  :column-loading="columnLoading" :loading-more="loadingMore" @column-click="goToColumn" />
 
                 <!-- 收藏列表 -->
-                <FavoriteList v-else-if="activeTab === 'favorite'" key="favorite" :favorite-list="favoriteList" :favorite-loading="favoriteLoading" :is-current-user="isCurrentUser" @toggle-favorite="toggleFavorite" @article-click="goToArticle" @update-favorite="handleUpdateFavorite" />
+                <FavoriteList v-else-if="activeTab === 'favorite'" key="favorite" :favorite-list="favoriteList"
+                  :favorite-loading="favoriteLoading" :is-current-user="isCurrentUser" @toggle-favorite="toggleFavorite"
+                  @article-click="goToArticle" @update-favorite="handleUpdateFavorite" />
 
                 <!-- 关注列表 -->
                 <FollowList v-else-if="activeTab === 'follow'" key="follow" />
@@ -62,15 +58,21 @@
               <h4 class="card-title">个人成就</h4>
               <div class="achievements">
                 <div class="achievement-item" v-if="userInfo?.articleCount >= 10">
-                  <el-icon class="achievement-icon"><Trophy /></el-icon>
+                  <el-icon class="achievement-icon">
+                    <Trophy />
+                  </el-icon>
                   <span>创作达人</span>
                 </div>
                 <div class="achievement-item" v-if="totalViews >= 1000">
-                  <el-icon class="achievement-icon"><View /></el-icon>
+                  <el-icon class="achievement-icon">
+                    <View />
+                  </el-icon>
                   <span>阅读之星</span>
                 </div>
                 <div class="achievement-item" v-if="userInfo?.fansCount >= 100">
-                  <el-icon class="achievement-icon"><User /></el-icon>
+                  <el-icon class="achievement-icon">
+                    <User />
+                  </el-icon>
                   <span>人气作者</span>
                 </div>
               </div>
@@ -588,8 +590,11 @@ $bg-color: #f5f7fa;
 
 // 用户主页容器
 .user-homepage {
+  width: 1440px;
   min-height: 100vh; // 确保至少占满整个视口高度
   overflow-y: auto; // 改为auto，只在需要时显示滚动条
+  margin-top: 10px;
+  margin-left: 240px;
 
   // 内容区域
   .content-section {
@@ -604,6 +609,7 @@ $bg-color: #f5f7fa;
 
   // 主要内容区域
   .main-content {
+
     // 标签页切换
     .tab-filters {
       background: var(--el-bg-color-page);
@@ -625,6 +631,7 @@ $bg-color: #f5f7fa;
 
   // 右侧边栏
   .sidebar {
+
     // 侧边栏卡片
     .sidebar-card {
       background: var(--el-bg-color-page);
@@ -676,7 +683,7 @@ $bg-color: #f5f7fa;
     position: relative;
 
     // 确保子组件占据完整高度
-    > div {
+    >div {
       min-height: 100%;
     }
   }

@@ -1,52 +1,58 @@
 <template>
   <el-menu :default-active="activeIndex" router class="pc-menu" mode="horizontal" @select="handleSelect"
-    :ellipsis="false" :class="{ hidden: !isVisible }">
+    :ellipsis="false" :class="{ hidden: !isVisible }" text-color="#000" active-text-color="#f59e0b">
     <!-- 移动端菜单按钮 -->
     <div class="mobile-menu-button" @click="toggleMobileMenu">
       <svg-icon name="menu" width="50px" height="50px" cursor="pointer" />
     </div>
-    <router-link class="logo" to="/"><el-text size="large" class="logo-text">云章论坛</el-text></router-link>
+    <router-link class="logo" to="/"><el-text size="large" class="logo-text">CloudScrpit</el-text></router-link>
     <el-menu-item index="/" class="menu-item">
       <span class="menu-text">主页</span>
     </el-menu-item>
     <el-menu-item index="/article" class="menu-item">
-      <span class="menu-text">发现</span>
-    </el-menu-item>
-    <el-menu-item index="/album" class="menu-item">
-      <span class="menu-text">社区</span>
+      <span class="menu-text">热门</span>
     </el-menu-item>
     <el-menu-item index="/link" class="menu-item">
-      <span class="menu-text">帮助</span>
+      <span class="menu-text">友联</span>
+    </el-menu-item>
+    <el-menu-item index="/about" class="menu-item">
+      <span class="menu-text">关于</span>
     </el-menu-item>
     <el-menu-item index="/creation" class="menu-item">
       <span class="menu-text">创作中心</span>
     </el-menu-item>
     <div class="right">
+
+
       <div class="search" @click="handleSearch">
-        <el-icon size="29px" color="var(--el-text-color-primary)">
-          <Search />
-        </el-icon>
+        <el-input v-model="searchQuery" placeholder="搜索..." prefix-icon="Search" clearable @keyup.enter="handleSearch"
+          @focus="onFocus" @blur="onBlur" class="search-input" />
       </div>
+
+
       <div class="message-icon" @click="goToMessage" v-if="user">
         <el-badge :value="messageStore.totalUnreadCount" :max="99" :hidden="messageStore.totalUnreadCount === 0">
-          <el-icon size="32px" color="var(--el-text-color-primary)">
+          <el-icon size="25px" color="var(--el-text-color-primary)">
             <ChatDotRound />
           </el-icon>
         </el-badge>
       </div>
+
       <div class="notification-icon" @click="goToNotification" v-if="user">
         <el-badge :value="notificationUnreadCount" :max="99" :hidden="notificationUnreadCount === 0">
-          <el-icon size="31px" color="var(--el-text-color-primary)">
+          <el-icon size="25px" color="var(--el-text-color-primary)">
             <Bell />
           </el-icon>
         </el-badge>
       </div>
-      <Dark />
+
+      <!-- <Dark /> -->
+
       <div v-if="user" class="user-info">
         <el-text size="large" class="nickname" @click="goToUserHomepage">{{ user.nickname }}</el-text>
         <el-dropdown placement="bottom-end">
-          <el-avatar v-if="user.avatar" style="cursor: pointer" :size="40" :src="user.avatar" />
-          <el-avatar v-else style="cursor: pointer" :size="40" :icon="UserFilled" />
+          <el-avatar v-if="user.avatar" style="cursor: pointer" :size="31" :src="user.avatar" />
+          <el-avatar v-else style="cursor: pointer" :size="31" :icon="UserFilled" />
           <template #dropdown>
             <el-dropdown-menu class="user-dropdown-menu">
               <!-- 用户信息卡片 -->
@@ -416,9 +422,24 @@ onBeforeUnmount(() => {
   WebSocketClient.off("open", handleWebSocketOpen);
 });
 
+
+// 搜索框
+const searchQuery = ref('');
+const onFocus = () => {
+  // 可选：聚焦时触发行为
+};
+const onBlur = () => {
+  // 可选：失焦时触发行为
+};
+
+
 </script>
 
 <style lang="scss" scoped>
+// .el-menu-item .is-active .menu-item {
+//   color: red;
+// }
+
 .pc-menu {
   height: 67px;
   width: 100%;
@@ -432,6 +453,8 @@ onBeforeUnmount(() => {
   z-index: 1000;
   transition: transform 0.5s ease;
   border: none;
+
+
 
   /* 90% 透明背景 + 毛玻璃效果 */
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.001), rgba(0, 0, 0, 0.001)), #FFFFFF;
@@ -460,6 +483,7 @@ onBeforeUnmount(() => {
       letter-spacing: 1px;
       position: relative;
       transition: all 0.3s ease;
+      font-weight: 600;
 
       &::after {
         content: "";
@@ -477,7 +501,7 @@ onBeforeUnmount(() => {
 
       &:hover {
         color: #f59e0b;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        text-shadow: 2px 2px 8px rgba(181, 178, 178, 0.2);
 
         &::after {
           transform: scaleX(1);
@@ -506,6 +530,7 @@ onBeforeUnmount(() => {
       justify-content: center;
       margin-right: 10px;
       cursor: pointer;
+      border-radius: 50px;
     }
 
     .message-icon {
@@ -514,6 +539,7 @@ onBeforeUnmount(() => {
       justify-content: center;
       margin-right: 10px;
       cursor: pointer;
+
 
       // 调整徽章大小和位置
       :deep(.el-badge__content) {
@@ -578,6 +604,10 @@ onBeforeUnmount(() => {
       border-radius: 50%;
       cursor: pointer;
     }
+  }
+
+  .el-menu--horizontal>.el-menu-item.is-active {
+    color: #F97316 !important;
   }
 
   // 移动端菜单按钮
@@ -722,6 +752,63 @@ onBeforeUnmount(() => {
       .logo-text {
         font-size: 20px !important;
       }
+    }
+  }
+}
+
+
+// 搜索框
+.search {
+  border-radius: 50px;
+}
+
+.search-input {
+  width: 420px;
+  height: 42px;
+  // 删除 margin-right
+  border-radius: 50px;
+
+
+  :deep(.el-input__inner) {
+    height: 100%;
+    border-radius: 50px !important;
+    border: none;
+    background-color: var(--el-bg-color);
+    padding-right: 12px;
+    font-size: 14px;
+    color: var(--el-text-color-primary);
+    box-shadow: none;
+    transition: all 0.2s ease;
+
+
+    &::placeholder {
+      color: var(--el-text-color-secondary);
+    }
+
+    &:focus,
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  :deep(.el-input__prefix) {
+    left: 12px;
+    right: auto;
+  }
+
+  :deep(.el-input__clear) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    opacity: 1;
+    transition: opacity 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
     }
   }
 }
