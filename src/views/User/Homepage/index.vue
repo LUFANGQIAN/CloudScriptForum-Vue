@@ -594,6 +594,7 @@ $bg-color: #f5f7fa;
   min-height: 100vh; // 确保至少占满整个视口高度
   overflow-y: auto; // 改为auto，只在需要时显示滚动条
   margin-top: 10px;
+  margin-left: 240px;
 
   // 内容区域
   .content-section {
