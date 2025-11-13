@@ -10,22 +10,23 @@
       <span class="menu-text">主页</span>
     </el-menu-item>
     <el-menu-item index="/article" class="menu-item">
-      <span class="menu-text">发现</span>
+      <span class="menu-text">热门</span>
     </el-menu-item>
     <el-menu-item index="/album" class="menu-item">
-      <span class="menu-text">社区</span>
+      <span class="menu-text">友联</span>
     </el-menu-item>
-    <el-menu-item index="/link" class="menu-item">
-      <span class="menu-text">帮助</span>
+    <el-menu-item index="/search" class="menu-item">
+      <span class="menu-text">关于</span>
     </el-menu-item>
     <el-menu-item index="/creation" class="menu-item">
       <span class="menu-text">创作中心</span>
     </el-menu-item>
     <div class="right">
       <div class="search" @click="handleSearch">
-        <el-icon size="29px" color="var(--el-text-color-primary)">
-          <Search />
-        </el-icon>
+        <div class="search-input-wrapper">
+          <el-input v-model="searchQuery" placeholder="搜索..." prefix-icon="Search" clearable @keyup.enter="handleSearch"
+            @focus="onFocus" @blur="onBlur" class="search-input" />
+        </div>
       </div>
       <div class="message-icon" @click="goToMessage" v-if="user">
         <el-badge :value="messageStore.totalUnreadCount" :max="99" :hidden="messageStore.totalUnreadCount === 0">
@@ -416,6 +417,17 @@ onBeforeUnmount(() => {
   WebSocketClient.off("open", handleWebSocketOpen);
 });
 
+
+// 搜索框
+const searchQuery = ref('');
+const onFocus = () => {
+  // 可选：聚焦时触发行为
+};
+const onBlur = () => {
+  // 可选：失焦时触发行为
+};
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -723,6 +735,80 @@ onBeforeUnmount(() => {
         font-size: 20px !important;
       }
     }
+  }
+}
+
+
+// 搜索栏
+.search {
+  position: relative;
+  display: flex;
+  margin-right: -10px;
+  
+  cursor: pointer;
+
+  .search-input {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--el-border-color);
+    background-color: var(--el-bg-color);
+    font-size: 14px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: var(--el-color-primary);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+      border-color: #f59e0b;
+    }
+
+    &.is-focus {
+      border-color: #f59e0b;
+    }
+
+    .el-input__prefix {
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+    }
+
+    .el-input__inner {
+      padding-left: 36px !important;
+      padding-right: 12px;
+      background: transparent;
+      border: none;
+      color: var(--el-text-color-primary);
+
+      &:placeholder {
+        color: var(--el-text-color-secondary);
+      }
+    }
+
+    .el-input__clear {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 870px) {
+  .search .search-input {
+    width: 120px;
   }
 }
 </style>
