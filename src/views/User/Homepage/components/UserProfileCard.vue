@@ -157,7 +157,6 @@ $bg-color: #f5f7fa;
     border-radius: 8px;
     padding: 30px;
     border: 1px solid var(--el-border-color);
-    box-shadow: 0 2px 12px var(--el-border-color-light);
     background-image: url(../../../../assets/img/user_bgc.png);
 
     // 骨架屏样式

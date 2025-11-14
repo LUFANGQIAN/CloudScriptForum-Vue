@@ -210,7 +210,6 @@ $bg-color: #f5f7fa;
     padding: 15px;
     margin-bottom: 12px;
     border: 1px solid var(--el-border-color);
-    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
     // 筛选控件整体样式
     .filter-controls {
@@ -253,7 +252,6 @@ $bg-color: #f5f7fa;
   border-radius: 8px;
   padding: 20px;
   border: 1px solid var(--el-border-color);
-  box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   min-height: 580px; // 设置最小高度，与父容器一致
   height: 100%; // 占据父容器的完整高度
 

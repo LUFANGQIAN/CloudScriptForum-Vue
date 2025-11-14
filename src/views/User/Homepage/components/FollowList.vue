@@ -396,7 +396,6 @@ onUnmounted(() => {
   border-radius: 8px;
   padding: 20px;
   border: 1px solid var(--el-border-color);
-  box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   min-height: 580px; // 设置最小高度，与其他组件一致
   height: 100%; // 占据父容器的完整高度
 

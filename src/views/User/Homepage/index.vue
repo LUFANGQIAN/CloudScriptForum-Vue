@@ -42,72 +42,53 @@
               </div>
             </div>
           </div>
-          <!-- 左侧主要内容 -->
-          <div class="main-content">
-            <!-- 标签页切换 -->
-            <div class="tab-filters">
-              <el-tabs v-model="activeTab" @tab-change="handleTabChange">
-                <el-tab-pane label="文章" name="article" />
-                <el-tab-pane label="专栏" name="column" />
-                <el-tab-pane label="收藏" name="favorite" />
-                <el-tab-pane label="关注" name="follow" />
-                <!-- 历史标签页只对当前用户显示 -->
-                <el-tab-pane v-if="isCurrentUser" label="历史" name="history" />
-              </el-tabs>
+
+          <!-- 左右区域 -->
+          <div class="leftandRight">
+            <!-- 左侧主要内容 -->
+            <div class="main-content">
+              <!-- 标签页切换 -->
+              <div class="tab-filters">
+                <el-tabs v-model="activeTab" @tab-change="handleTabChange">
+                  <el-tab-pane label="文章" name="article" />
+                  <el-tab-pane label="专栏" name="column" />
+                  <el-tab-pane label="收藏" name="favorite" />
+                  <el-tab-pane label="关注" name="follow" />
+                  <!-- 历史标签页只对当前用户显示 -->
+                  <el-tab-pane v-if="isCurrentUser" label="历史" name="history" />
+                </el-tabs>
+              </div>
+
+              <!-- 内容区域 - 固定高度以防止抖动 -->
+              <div class="tab-content-container">
+                <!-- 内容切换过渡动画 -->
+                <transition name="tab-fade" mode="out-in">
+                  <!-- 文章列表 -->
+                  <ArticleList v-if="activeTab === 'article'" key="article" :article-list="articleList"
+                    :article-loading="articleLoading" :loading-more="loadingMore" :is-current-user="isCurrentUser"
+                    :sort-type="sortType" :visibility-type="visibilityType" @article-click="goToArticle"
+                    @sort-change="handleSortChange" @visibility-change="handleVisibilityChange" />
+
+                  <!-- 专栏列表 -->
+                  <ColumnList v-else-if="activeTab === 'column'" key="column" :column-list="columnList"
+                    :column-loading="columnLoading" :loading-more="loadingMore" @column-click="goToColumn" />
+
+                  <!-- 收藏列表 -->
+                  <FavoriteList v-else-if="activeTab === 'favorite'" key="favorite" :favorite-list="favoriteList"
+                    :favorite-loading="favoriteLoading" :is-current-user="isCurrentUser"
+                    @toggle-favorite="toggleFavorite" @article-click="goToArticle"
+                    @update-favorite="handleUpdateFavorite" />
+
+                  <!-- 关注列表 -->
+                  <FollowList v-else-if="activeTab === 'follow'" key="follow" />
+
+                  <!-- 历史列表 -->
+                  <HistoryList v-else-if="activeTab === 'history'" key="history" ref="historyListRef" />
+                </transition>
+              </div>
+
             </div>
 
-            <!-- 内容区域 - 固定高度以防止抖动 -->
-            <div class="tab-content-container">
-              <!-- 内容切换过渡动画 -->
-              <transition name="tab-fade" mode="out-in">
-                <!-- 文章列表 -->
-                <ArticleList v-if="activeTab === 'article'" key="article" :article-list="articleList"
-                  :article-loading="articleLoading" :loading-more="loadingMore" :is-current-user="isCurrentUser"
-                  :sort-type="sortType" :visibility-type="visibilityType" @article-click="goToArticle"
-                  @sort-change="handleSortChange" @visibility-change="handleVisibilityChange" />
-
-                <!-- 专栏列表 -->
-                <ColumnList v-else-if="activeTab === 'column'" key="column" :column-list="columnList"
-                  :column-loading="columnLoading" :loading-more="loadingMore" @column-click="goToColumn" />
-
-                <!-- 收藏列表 -->
-                <FavoriteList v-else-if="activeTab === 'favorite'" key="favorite" :favorite-list="favoriteList"
-                  :favorite-loading="favoriteLoading" :is-current-user="isCurrentUser" @toggle-favorite="toggleFavorite"
-                  @article-click="goToArticle" @update-favorite="handleUpdateFavorite" />
-
-                <!-- 关注列表 -->
-                <FollowList v-else-if="activeTab === 'follow'" key="follow" />
-
-                <!-- 历史列表 -->
-                <HistoryList v-else-if="activeTab === 'history'" key="history" ref="historyListRef" />
-              </transition>
-            </div>
-
-<<<<<<< HEAD
-          <!-- 右侧边栏 -->
-          <div class="sidebar">
-            <!-- 个人成就 -->
-            <div class="sidebar-card">
-              <h4 class="card-title">个人成就</h4>
-              <div class="achievements">
-                <div class="achievement-item" v-if="userInfo?.articleCount <= 10">
-                  <el-icon class="achievement-icon">
-                    <Trophy />
-                  </el-icon>
-                  <span>创作达人</span>
-                </div>
-                <div class="achievement-item" v-if="totalViews <= 1000">
-                  <el-icon class="achievement-icon">
-                    <View />
-                  </el-icon>
-                  <span>阅读之星</span>
-                </div>
-                <div class="achievement-item" v-if="userInfo?.fansCount <= 100">
-                  <el-icon class="achievement-icon">
-                    <User />
-                  </el-icon>
-                  <span>人气作者</span>
-=======
             <!-- 右侧边栏 -->
             <div class="sidebar">
               <!-- 个人成就 -->
@@ -135,11 +116,12 @@
                       <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
                     </div>
                   </div>
->>>>>>> a5ab472cd02ac2ce823719d1da3109c663981e3a
                 </div>
               </div>
             </div>
+
           </div>
+
 
 
         </div>
@@ -656,11 +638,17 @@ $bg-color: #f5f7fa;
 
 
 
+.leftandRight{
+  width: 1420px;
+  display: flex;
+  margin-top: 24px;
+}
+
 .user-homepage {
   width: 1440px;
   min-height: 100vh; // 确保至少占满整个视口高度
   overflow-y: auto; // 改为auto，只在需要时显示滚动条
-  margin-top: 10px;
+  margin-top: 32px;
   margin-left: 240px;
 
 
@@ -677,7 +665,8 @@ $bg-color: #f5f7fa;
 
   // 主要内容区域
   .main-content {
-    margin-top: 24px;
+    width: 1055px;
+    // margin-top: 24px;
 
     // 标签页切换
     .tab-filters {
@@ -688,7 +677,6 @@ $bg-color: #f5f7fa;
       margin-bottom: 12px;
       margin-left: 10px;
       border: 1px solid var(--el-border-color);
-      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
       :deep(.el-tabs__header) {
         margin: 0;
@@ -722,9 +710,7 @@ $bg-color: #f5f7fa;
 
   // 右侧边栏
   .sidebar {
-    position: absolute;
-    left: 1316px;
-    top: 409px;
+    margin-left: 12px;
 
 
     // 侧边栏卡片
@@ -734,7 +720,6 @@ $bg-color: #f5f7fa;
       border-radius: 8px;
       padding: 20px;
       border: 1px solid var(--el-border-color);
-      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
       .card-title {
         font-size: 16px;
@@ -866,7 +851,6 @@ $bg-color: #f5f7fa;
     height: 92px;
     padding: 20px 16px;
     background-color: var(--el-bg-color-page);
-    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     border: 1px solid var(--el-border-color-light);
     text-align: center;
@@ -1058,7 +1042,7 @@ $bg-color: #f5f7fa;
   }
 }
 
-body{
+body {
   background-color: #f9fafb !important;
 }
 </style>
