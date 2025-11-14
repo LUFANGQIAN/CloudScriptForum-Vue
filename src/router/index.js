@@ -22,7 +22,7 @@ const router = createRouter({
           meta: { title: "热门" },
         },
         {
-          path: "search",
+          path:  "search",
           name: "Search",
           component: () => import("@/views/Search/index.vue"),
           meta: { title: "搜索" },

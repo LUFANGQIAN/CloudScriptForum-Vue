@@ -165,7 +165,7 @@ onMounted(() => {
     .logo-text {
       margin-right: 4px;
       font-size: 26px;
-      color: #3d92eb;
+      color: #F97316;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       letter-spacing: 1px;
       position: relative;
@@ -177,15 +177,15 @@ onMounted(() => {
         left: 0;
         width: 100%;
         height: 3px;
-        background: linear-gradient(90deg, #3d92eb, #6f42c1);
+        background-color: #FF8E3C;;
         border-radius: 3px;
         transform: scaleX(0);
         transform-origin: right;
         transition: transform 0.3s ease;
       }
       &:hover {
-        color: #6f42c1;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        color: #FF8E3C;;
+        text-shadow: 2px 2px 8px rgba(216, 216, 216, 0.416);
 
         &::after {
           transform: scaleX(1);
