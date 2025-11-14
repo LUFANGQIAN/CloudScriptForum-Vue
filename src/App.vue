@@ -4,7 +4,11 @@
       <component :is="Component" />
     </transition>
   </router-view> -->
+
+
   <router-view>
+
+
   </router-view>
 </template>
 
@@ -13,7 +17,7 @@
 </script>
 
 <style lang="scss">
-body{
+body {
   background-color: #f9fafb !important;
 }
 </style>

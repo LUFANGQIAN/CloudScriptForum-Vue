@@ -83,31 +83,6 @@
               </transition>
             </div>
 
-<<<<<<< HEAD
-          <!-- 右侧边栏 -->
-          <div class="sidebar">
-            <!-- 个人成就 -->
-            <div class="sidebar-card">
-              <h4 class="card-title">个人成就</h4>
-              <div class="achievements">
-                <div class="achievement-item" v-if="userInfo?.articleCount <= 10">
-                  <el-icon class="achievement-icon">
-                    <Trophy />
-                  </el-icon>
-                  <span>创作达人</span>
-                </div>
-                <div class="achievement-item" v-if="totalViews <= 1000">
-                  <el-icon class="achievement-icon">
-                    <View />
-                  </el-icon>
-                  <span>阅读之星</span>
-                </div>
-                <div class="achievement-item" v-if="userInfo?.fansCount <= 100">
-                  <el-icon class="achievement-icon">
-                    <User />
-                  </el-icon>
-                  <span>人气作者</span>
-=======
             <!-- 右侧边栏 -->
             <div class="sidebar">
               <!-- 个人成就 -->
@@ -135,7 +110,6 @@
                       <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
                     </div>
                   </div>
->>>>>>> a5ab472cd02ac2ce823719d1da3109c663981e3a
                 </div>
               </div>
             </div>
