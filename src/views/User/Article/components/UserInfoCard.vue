@@ -1,58 +1,63 @@
 <template>
-  <div class="user-info-card">
-    <!-- 加载状态 -->
-    <el-skeleton :loading="loading" animated>
-      <template #template>
-        <div class="skeleton-content">
-          <el-skeleton-item variant="circle" style="width: 80px; height: 80px" />
-          <el-skeleton-item variant="h3" style="width: 50%; margin: 12px 0" />
-          <el-skeleton-item variant="text" style="width: 80%" />
-          <el-skeleton-item variant="text" style="width: 60%" />
-        </div>
-      </template>
+  <div class="article-catalog" :class="{ 'is-fixed': isFixed }">
+    <div class="user-info-card">
+      <!-- 加载状态 -->
+      <el-skeleton :loading="loading" animated>
+        <template #template>
+          <div class="skeleton-content">
+            <el-skeleton-item variant="circle" style="width: 80px; height: 80px" />
+            <el-skeleton-item variant="h3" style="width: 50%; margin: 12px 0" />
+            <el-skeleton-item variant="text" style="width: 80%" />
+            <el-skeleton-item variant="text" style="width: 60%" />
+          </div>
+        </template>
 
-      <!-- 实际内容 -->
-      <template #default>
-        <div class="user-card-content" v-if="userInfo">
-          <!-- 用户基本信息 -->
-          <div class="user-basic-info">
-            <div class="avatar-container" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave" @click="goToUserHomepage">
-              <div class="avatar-wrapper" ref="avatarWrapper">
-                <el-avatar :size="100" :src="userInfo.avatar" class="clickable-avatar" />
-                <div class="shine-effect" ref="shineEffect"></div>
+        <!-- 实际内容 -->
+        <template #default>
+          <div class="user-card-content" v-if="userInfo">
+            <!-- 用户基本信息 -->
+            <div class="user-basic-info">
+              <div class="avatar-container" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave"
+                @click="goToUserHomepage">
+                <div class="avatar-wrapper" ref="avatarWrapper">
+                  <el-avatar :size="100" :src="userInfo.avatar" class="clickable-avatar" />
+                  <div class="shine-effect" ref="shineEffect"></div>
+                </div>
+              </div>
+              <h3 class="nickname clickable-nickname" @click="goToUserHomepage">
+                {{ userInfo.nickname }}
+              </h3>
+            </div>
+
+            <!-- 用户统计信息 -->
+            <div class="user-stats">
+              <div class="stat-item">
+                <span class="stat-value">{{ userInfo.articleCount || 0 }}</span>
+                <span class="stat-label">文章</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">{{ userInfo.fansCount || 0 }}</span>
+                <span class="stat-label">粉丝</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">{{ userInfo.followCount || 0 }}</span>
+                <span class="stat-label">关注</span>
               </div>
             </div>
-            <h3 class="nickname clickable-nickname" @click="goToUserHomepage">
-              {{ userInfo.nickname }}
-            </h3>
-          </div>
 
-          <!-- 用户统计信息 -->
-          <div class="user-stats">
-            <div class="stat-item">
-              <span class="stat-value">{{ userInfo.articleCount || 0 }}</span>
-              <span class="stat-label">文章</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-value">{{ userInfo.fansCount || 0 }}</span>
-              <span class="stat-label">粉丝</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-value">{{ userInfo.followCount || 0 }}</span>
-              <span class="stat-label">关注</span>
+            <!-- 操作按钮 -->
+            <div class="user-actions" v-if="!isCurrentUser">
+              <el-button :type="isFollowed ? 'default' : 'primary'" :icon="isFollowed ? null : Plus"
+                @click="handleFollow" :loading="followLoading" :class="{ 'followed-btn': isFollowed }"
+                @mouseenter="handleFollowButtonHover(true)" @mouseleave="handleFollowButtonHover(false)">
+                {{ followButtonText }}
+              </el-button>
+              <el-button :icon="Message" @click="handleMessage"> 私信 </el-button>
             </div>
           </div>
-
-          <!-- 操作按钮 -->
-          <div class="user-actions" v-if="!isCurrentUser">
-            <el-button :type="isFollowed ? 'default' : 'primary'" :icon="isFollowed ? null : Plus" @click="handleFollow" :loading="followLoading" :class="{ 'followed-btn': isFollowed }" @mouseenter="handleFollowButtonHover(true)" @mouseleave="handleFollowButtonHover(false)">
-              {{ followButtonText }}
-            </el-button>
-            <el-button :icon="Message" @click="handleMessage"> 私信 </el-button>
-          </div>
-        </div>
-      </template>
-    </el-skeleton>
+        </template>
+      </el-skeleton>
+    </div>
   </div>
 </template>
 
@@ -258,6 +263,7 @@ onMounted(() => {
 
   // 用户卡片内容
   .user-card-content {
+
     // 基本信息区域
     .user-basic-info {
       display: flex;
@@ -396,4 +402,5 @@ onMounted(() => {
     }
   }
 }
+
 </style>

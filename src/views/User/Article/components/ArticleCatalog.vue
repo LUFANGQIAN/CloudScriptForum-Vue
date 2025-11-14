@@ -1,5 +1,5 @@
 <template>
-  <div class="article-catalog" :class="{ 'is-fixed': isFixed }">
+  <div class="article-catalog">
     <div class="catalog-header">
       <el-icon>
         <Document />

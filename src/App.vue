@@ -13,5 +13,7 @@
 </script>
 
 <style lang="scss">
-
+body{
+  background-color: #f9fafb !important;
+}
 </style>

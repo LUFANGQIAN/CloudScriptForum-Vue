@@ -57,19 +57,19 @@
             <div class="sidebar-card">
               <h4 class="card-title">个人成就</h4>
               <div class="achievements">
-                <div class="achievement-item" v-if="userInfo?.articleCount >= 10">
+                <div class="achievement-item" v-if="userInfo?.articleCount <= 10">
                   <el-icon class="achievement-icon">
                     <Trophy />
                   </el-icon>
                   <span>创作达人</span>
                 </div>
-                <div class="achievement-item" v-if="totalViews >= 1000">
+                <div class="achievement-item" v-if="totalViews <= 1000">
                   <el-icon class="achievement-icon">
                     <View />
                   </el-icon>
                   <span>阅读之星</span>
                 </div>
-                <div class="achievement-item" v-if="userInfo?.fansCount >= 100">
+                <div class="achievement-item" v-if="userInfo?.fansCount <= 100">
                   <el-icon class="achievement-icon">
                     <User />
                   </el-icon>
@@ -788,5 +788,9 @@ $bg-color: #f5f7fa;
       font-size: 16px;
     }
   }
+}
+
+body{
+  background-color: #f9fafb !important;
 }
 </style>

@@ -78,7 +78,8 @@
               <div class="article-tags">
                 <span>文章标签：</span>
                 <div class="tags-container">
-                  <el-tag v-for="tag in tagList" :key="tag" size="small" effect="light" class="tag-clickable" @click="handleTagClick(tag)">
+                  <el-tag v-for="tag in tagList" :key="tag" size="small" effect="light" class="tag-clickable"
+                    @click="handleTagClick(tag)">
                     {{ tag }}
                   </el-tag>
                 </div>
@@ -90,7 +91,8 @@
               <div class="article-columns">
                 <span>文章专栏：</span>
                 <div class="columns-container">
-                  <el-tag v-for="column in article.columns || []" :key="column.id" type="success" size="small" effect="light" class="column-clickable" @click="handleColumnClick(column)">
+                  <el-tag v-for="column in article.columns || []" :key="column.id" type="success" size="small"
+                    effect="light" class="column-clickable" @click="handleColumnClick(column)">
                     {{ column.name }}
                   </el-tag>
                 </div>
@@ -110,45 +112,14 @@
     </el-skeleton>
   </div>
 
-  <!-- 文章底部操作栏 -->
-  <div class="article-actions" v-if="article">
-    <div class="action-item">
-      <el-button :type="article.isLiked ? 'primary' : 'default'" :loading="likeLoading" @click="handleLike">
-        <svg-icon name="like" width="16px" height="16px" margin-right="6px" :color="article.isLiked ? '#ffffff' : '#909399'" />
-        {{ article.likeCount || 0 }}
-      </el-button>
-    </div>
-    <div class="action-item">
-      <el-button :type="article.isCollected ? 'primary' : 'default'" :icon="article.isCollected ? StarFilled : Star" @click="handleCollect">
-        {{ article.collectCount || 0 }}
-      </el-button>
-    </div>
-    <div class="action-item">
-      <el-button :icon="ChatLineRound" @click="handleComment">
-        {{ commentTotal || article.commentCount || 0 }}
-      </el-button>
-    </div>
-  </div>
 
-  <!-- 返回顶部按钮 -->
-  <div class="back-to-top" @click="scrollToTop">
-    <el-icon>
-      <ArrowUp />
-    </el-icon>
-  </div>
-
-  <!-- 评论抽屉 -->
-  <CommentDrawer v-if="article?.id" v-model:visible="commentDrawerVisible" :article-id="article.id" ref="commentDrawerRef" />
-
-  <!-- 收藏对话框 -->
-  <FavoriteDialog v-if="article?.id" v-model="favoriteDialogVisible" :article-id="article.id" @success="handleFavoriteSuccess" />
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
-import { Clock, View, Star, StarFilled, ChatLineRound, ArrowUp, Edit } from "@element-plus/icons-vue";
+import { Clock, View, Star, StarFilled, ChatLineRound, Edit } from "@element-plus/icons-vue";
 import { toggleLike, isLiked } from "@/api/like";
 import { useUserStore } from "@/stores/userStore";
 import CommentDrawer from "@/views/User/Article/components/CommentDrawer.vue";
@@ -184,10 +155,8 @@ const emit = defineEmits(["updateArticle"]);
 
 // 响应式数据
 const likeLoading = ref(false); // 点赞加载状态
-const commentDrawerVisible = ref(false); // 评论抽屉显示状态
-const commentTotal = ref(0); // 评论总数
-const commentDrawerRef = ref(null); // 评论抽屉引用
-const favoriteDialogVisible = ref(false); // 收藏对话框显示状态
+const commentDrawerVisible = ref(false);
+const commentTotal = ref(0);
 const copySuccess = ref(false); // 复制成功状态
 
 // 渲染富文本内容
@@ -371,8 +340,13 @@ const handleEditArticle = () => {
 <style lang="scss" scoped>
 // 文章内容容器
 .article-content {
-  padding: 30px 30px; // 底部留出空间给固定操作栏
+  padding: 24px 24px;
   position: relative;
+
+  overflow: hidden;
+  background-color: var(--el-bg-color);
+  border-radius: 8px;
+  box-shadow: var(--el-box-shadow-light);
 
   // 骨架屏样式
   .skeleton-content {
@@ -385,6 +359,7 @@ const handleEditArticle = () => {
 
   // 文章主体
   .article-main {
+
     // 文章标题
     .article-title {
       margin: 0 0 20px;
@@ -542,7 +517,7 @@ const handleEditArticle = () => {
 
     // 文章内容
     .article-body {
-      margin-bottom: 100px; // 增加底部边距，避免被固定操作栏遮挡
+      margin-bottom: 24px;
       line-height: 1.8;
       font-size: 16px;
       color: var(--el-text-color-primary);
@@ -624,6 +599,7 @@ const handleEditArticle = () => {
         background-color: var(--el-fill-color-light) !important;
         color: var(--el-text-color-secondary);
         border-left: 0.25em solid var(--el-border-color);
+
         p {
           margin: 5px;
         }
@@ -638,6 +614,7 @@ const handleEditArticle = () => {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
+
         p {
           text-align: center;
         }
@@ -707,65 +684,6 @@ const handleEditArticle = () => {
   }
 }
 
-// 文章底部操作栏 - 固定在视窗底部，使用稳定的居中定位
-.article-actions {
-  position: fixed;
-  bottom: 20px;
-  left: calc(50vw - 200px); // 使用vw单位避免滚动条影响，200px是操作栏最大宽度的一半
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 16px 24px;
-  background: var(--el-bg-color);
-  backdrop-filter: blur(2px);
-  background-color: color-mix(in srgb, var(--el-bg-color) 50%, transparent);
-  border: 1px solid var(--el-border-color-lighter);
-  border-radius: 24px;
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.15);
-  max-width: 400px;
-  width: auto;
-
-  .action-item {
-    .el-button {
-      min-width: 100px;
-      border-radius: 20px;
-    }
-  }
-}
-
-// 返回顶部按钮样式
-.back-to-top {
-  position: fixed;
-  z-index: 9999;
-  right: 70px;
-  bottom: 150px; // 避免与底部操作栏重叠
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 65px;
-  height: 65px;
-  font-size: 24px;
-  backdrop-filter: blur(2px);
-  background-color: color-mix(in srgb, var(--el-bg-color) 50%, transparent);
-  border: 1px solid var(--el-border-color);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: var(--el-color-primary);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
-  }
-
-  .el-icon {
-    font-size: 20px;
-  }
-}
-
 // 响应式设计
 @media (max-width: 768px) {
   .article-content {
@@ -778,6 +696,7 @@ const handleEditArticle = () => {
 
       .article-meta {
         .meta-row {
+
           // 第一行在手机端分两行显示
           &.first-row {
             flex-direction: column;
@@ -894,35 +813,6 @@ const handleEditArticle = () => {
     }
   }
 
-  // 移动端操作栏调整
-  .article-actions {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 30px;
-    padding: 12px 20px;
-    gap: 16px;
-    max-width: 320px;
 
-    .action-item {
-      .el-button {
-        min-width: 80px;
-        font-size: 14px;
-        padding: 8px 16px;
-      }
-    }
-  }
-
-  // 移动端返回顶部按钮调整
-  .back-to-top {
-    right: 15px;
-    bottom: 120px; // 为移动端底部操作栏留出更多空间
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-
-    .el-icon {
-      font-size: 18px;
-    }
-  }
 }
 </style>
