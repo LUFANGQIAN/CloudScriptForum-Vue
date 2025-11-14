@@ -62,14 +62,6 @@
               </div>
             </div>
             <div class="value">{{ formatNumber(s.value) }}</div>
-            <div class="trend">
-              <span :class="s.trend?.up ? 'up' : 'down'">
-                <el-icon v-if="s.trend?.up"><CaretTop /></el-icon>
-                <el-icon v-else><CaretBottom /></el-icon>
-                {{ Math.abs(s.trend?.value || 0) }}%
-              </span>
-              <span class="compare">{{ s.trend?.label }}</span>
-            </div>
           </div>
         </section>
         <section class="hot-topics">
@@ -335,26 +327,17 @@ $muted: var(--el-text-color-secondary);
 }
 
 .stat-card .label {
-  font-size: 14px;
+  font-size: 16px;
   color: $muted;
 }
 
 .stat-card .value {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
+  margin-top: -6px;
   color: $text;
 }
 
-.stat-card .trend {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-}
-
-.stat-card .trend .up { color: #18c26a; }
-.stat-card .trend .down { color: #ff4d4f; }
-.stat-card .trend .compare { color: $muted; }
 
 .stat-card .icon {
   width: 40px;

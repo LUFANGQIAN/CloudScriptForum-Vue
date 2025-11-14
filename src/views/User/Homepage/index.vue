@@ -87,51 +87,52 @@
                 </transition>
               </div>
 
-              <!-- 右侧边栏 -->
-              <div class="sidebar">
-                <!-- 个人成就 -->
-                <div class="sidebar-card">
-                  <h4 class="card-title">个人成就</h4>
-                  <div class="achievements">
-                    <div class="achievement-item" v-if="userInfo?.articleCount <= 10">
-                      <div class="achievement_item_bgi"></div>
-                      <div class="achievement_item_Introduction">
-                        <div class="achievement_name">开创者</div>
-                        <div class="Introduction">原始股好不好，开创者，第一版，特殊成就</div>
-                      </div>
+            </div>
+
+            <!-- 右侧边栏 -->
+            <div class="sidebar">
+              <!-- 个人成就 -->
+              <div class="sidebar-card">
+                <h4 class="card-title">个人成就</h4>
+                <div class="achievements">
+                  <div class="achievement-item" v-if="userInfo?.articleCount <= 10">
+                    <div class="achievement_item_bgi"></div>
+                    <div class="achievement_item_Introduction">
+                      <div class="achievement_name">开创者</div>
+                      <div class="Introduction">原始股好不好，开创者，第一版，特殊成就</div>
                     </div>
-                    <div class="achievement-item" v-if="totalViews <= 1000">
-                      <div class="achievement_item_bgi"></div>
-                      <div class="achievement_item_Introduction">
-                        <div class="achievement_name">领导者</div>
-                        <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
-                      </div>
+                  </div>
+                  <div class="achievement-item" v-if="totalViews <= 1000">
+                    <div class="achievement_item_bgi"></div>
+                    <div class="achievement_item_Introduction">
+                      <div class="achievement_name">领导者</div>
+                      <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
                     </div>
-                    <div class="achievement-item" v-if="userInfo?.fansCount <= 100">
-                      <div class="achievement_item_bgi"></div>
-                      <div class="achievement_item_Introduction">
-                        <div class="achievement_name">领导者</div>
-                        <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
-                      </div>
+                  </div>
+                  <div class="achievement-item" v-if="userInfo?.fansCount <= 100">
+                    <div class="achievement_item_bgi"></div>
+                    <div class="achievement_item_Introduction">
+                      <div class="achievement_name">领导者</div>
+                      <div class="Introduction">论坛创立前一个注册的先行者12312312312312312312312311231231</div>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
 
-
-
           </div>
+
+
+
         </div>
       </div>
+    </div>
 
-      <!-- 返回顶部按钮 - 统一在父组件管理 -->
-      <div v-show="showBackToTop" class="back-to-top" @click="scrollToTop">
-        <el-icon>
-          <ArrowUp />
-        </el-icon>
-      </div>
+    <!-- 返回顶部按钮 - 统一在父组件管理 -->
+    <div v-show="showBackToTop" class="back-to-top" @click="scrollToTop">
+      <el-icon>
+        <ArrowUp />
+      </el-icon>
     </div>
   </div>
 </template>
@@ -637,7 +638,7 @@ $bg-color: #f5f7fa;
 
 
 
-.leftandRight {
+.leftandRight{
   width: 1420px;
   display: flex;
   margin-top: 24px;
