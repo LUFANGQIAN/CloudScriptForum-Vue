@@ -3,7 +3,7 @@
     <!-- 评论主体 -->
     <div class="comment-main">
       <!-- 用户头像 -->
-      <div class="comment-avatar">
+      <div class="comment-avatar" @click.stop="goToUserPage(comment.userId)">
         <el-avatar :size="40" :src="comment.avatar" />
       </div>
 
@@ -28,7 +28,8 @@
           <!-- 点赞按钮 -->
           <div class="action-item like-action">
             <el-button text size="small" :class="{ 'is-liked': comment.isLiked }" @click="handleLike">
-              <svg-icon name="like" width="13px" height="13px" margin-right="7px" :color="comment.isLiked ? '#409EFF' : '#909399'" />
+              <svg-icon name="like" width="13px" height="13px" margin-right="7px"
+                :color="comment.isLiked ? '#409EFF' : '#909399'" />
               <span>{{ comment.likeCount || 0 }}</span>
             </el-button>
           </div>
@@ -36,7 +37,9 @@
           <!-- 回复按钮 -->
           <div class="action-item">
             <el-button text size="small" @click="toggleReplyForm">
-              <el-icon><ChatDotRound /></el-icon>
+              <el-icon>
+                <ChatDotRound />
+              </el-icon>
               <span>回复</span>
             </el-button>
           </div>
@@ -44,7 +47,9 @@
           <!-- 删除按钮（只有评论作者可见） -->
           <div v-if="canDelete" class="action-item">
             <el-button text size="small" type="danger" @click="handleDelete">
-              <el-icon><Delete /></el-icon>
+              <el-icon>
+                <Delete />
+              </el-icon>
               <span>删除</span>
             </el-button>
           </div>
@@ -52,7 +57,10 @@
           <!-- 查看回复按钮 -->
           <div v-if="comment.replyCount > 0" class="action-item">
             <el-button text size="small" @click="toggleReplies">
-              <el-icon><ArrowDown v-if="!showReplies" /><ArrowUp v-else /></el-icon>
+              <el-icon>
+                <ArrowDown v-if="!showReplies" />
+                <ArrowUp v-else />
+              </el-icon>
               <span>{{ showReplies ? "收起" : "查看" }}回复 ({{ comment.replyCount }})</span>
             </el-button>
           </div>
@@ -60,12 +68,15 @@
 
         <!-- 回复表单 -->
         <div v-if="showReplyForm" class="reply-form">
-          <CommentForm :article-id="articleId" :parent-id="isReply ? comment.parentId : comment.id" :reply-user-id="comment.userId" :reply-user-nickname="comment.nickname" :placeholder="`回复 ${comment.nickname}：`" @comment-added="handleReplyAdded" @cancel="hideReplyForm" />
+          <CommentForm :article-id="articleId" :parent-id="isReply ? comment.parentId : comment.id"
+            :reply-user-id="comment.userId" :reply-user-nickname="comment.nickname"
+            :placeholder="`回复 ${comment.nickname}：`" @comment-added="handleReplyAdded" @cancel="hideReplyForm" />
         </div>
 
         <!-- 回复列表（只在父评论中显示） -->
         <div v-if="!isReply && showReplies && replyList.length > 0" class="reply-list">
-          <CommentItem v-for="reply in replyList" :key="reply.id" :comment="reply" :article-id="articleId" :is-reply="true" @reply-added="handleSubReplyAdded" @comment-deleted="handleReplyDeleted" />
+          <CommentItem v-for="reply in replyList" :key="reply.id" :comment="reply" :article-id="articleId"
+            :is-reply="true" @reply-added="handleSubReplyAdded" @comment-deleted="handleReplyDeleted" />
 
           <!-- 加载更多回复 -->
           <div v-if="hasMoreReplies" class="load-more-replies">
@@ -89,6 +100,8 @@ import { useUserStore } from "@/stores/userStore";
 import { formatTime } from "@/utils/formatTime";
 import CommentForm from "./CommentForm.vue";
 import SvgIcon from "@/components/SvgIcon.vue";
+import { useRouter } from 'vue-router'; 
+
 
 // Props
 const props = defineProps({
@@ -164,6 +177,14 @@ const toggleReplies = async () => {
     await fetchReplies(true);
   }
 };
+
+// 跳转到用户主页
+const router = useRouter();
+const goToUserPage = (userId) => {
+  if (!userId) return;
+  router.push(`/user/${userId}`);
+};
+
 
 // 获取回复列表
 const fetchReplies = async (reset = false) => {
@@ -323,6 +344,10 @@ const handleDelete = async () => {
     // 用户头像
     .comment-avatar {
       flex-shrink: 0;
+    }
+
+    .comment-avatar:hover {
+      cursor: pointer;
     }
 
     // 评论内容

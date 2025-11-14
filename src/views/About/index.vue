@@ -315,7 +315,7 @@ $shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       left: 0;
       width: 100%;
       height: 100%;
-      background: url("@/assets/img/th.jpg") no-repeat center center / cover fixed;
+      background: url("@/assets/img/bg.jpg") no-repeat center center / cover fixed;
       z-index: 1;
 
       // 底部渐变过渡效果
