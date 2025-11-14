@@ -13,40 +13,32 @@
             <!-- 用户统计信息 -->
             <div class="user-stats">
               <div class="stat-item word">
-                <span class="stat-icon" style="color: #409eff;">
-                  <el-icon>
-                    <Document />
-                  </el-icon>
-                </span>
-                <span class="stat-label">文章数量</span>
-                <span class="stat-number">{{ userInfo.articleCount || 0 }}</span>
+                <div class="stat-item_word"></div>
+                <div class="stat-item_label">
+                  <span class="stat-label">文章数量</span>
+                  <span class="stat-number">{{ userInfo.articleCount || 0 }}</span>
+                </div>
               </div>
               <div class="stat-item nember">
-                <span class="stat-icon" style="color: #e67dfe;">
-                  <el-icon>
-                    <User />
-                  </el-icon>
-                </span>
-                <span class="stat-label">粉丝数量</span>
-                <span class="stat-number">{{ userInfo.fansCount || 0 }}</span>
+                <div class="stat-item_nember"></div>
+                <div class="stat-item_label">
+                  <span class="stat-label">粉丝数量</span>
+                  <span class="stat-number">{{ userInfo.fansCount || 0 }}</span>
+                </div>
               </div>
               <div class="stat-item gaunzhu_nember">
-                <span class="stat-icon" style="color: #67c23a;">
-                  <el-icon>
-                    <Star />
-                  </el-icon>
-                </span>
-                <span class="stat-label">关注数量</span>
-                <span class="stat-number">{{ userInfo.followCount || 0 }}</span>
+                <div class="stat-item_gaunzhu_nember"></div>
+                <div class="stat-item_label">
+                  <span class="stat-label">关注数量</span>
+                  <span class="stat-number">{{ userInfo.followCount || 0 }}</span>
+                </div>
               </div>
               <div class="stat-item reader">
-                <span class="stat-icon" style="color: #f56c6c;">
-                  <el-icon>
-                    <Reading />
-                  </el-icon>
-                </span>
-                <span class="stat-label">阅读数量</span>
-                <span class="stat-number">{{ totalViews }}</span>
+                <div class="stat-item_reader"></div>
+                <div class="stat-item_label">
+                  <span class="stat-label">阅读数量</span>
+                  <span class="stat-number">{{ totalViews }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -763,7 +755,33 @@ $bg-color: #f5f7fa;
         height: 48px;
       }
 
+      .achievement_item_Introduction {
+        width: 205px;
+        height: 48px;
 
+      }
+
+      .achievement_name {
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        margin-top: -2px;
+        letter-spacing: normal;
+        color: #111827;
+      }
+
+      .Introduction {
+        width: 205px;
+        height: 24px;
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        letter-spacing: normal;
+        /* 二级标题色 */
+        color: #6B7280;
+      }
 
     }
   }
@@ -816,10 +834,11 @@ $bg-color: #f5f7fa;
   background: transparent;
 
   .stat-item {
+    display: flex;
     flex: 1;
     width: 336px;
     height: 92px;
-    padding: 12px 16px;
+    padding: 20px 16px;
     background-color: var(--el-bg-color-page);
     box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -843,19 +862,56 @@ $bg-color: #f5f7fa;
       font-size: 14px;
     }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--el-text-color-secondary);
-      margin-bottom: 4px;
-      display: block;
-    }
 
-    .stat-number {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--el-text-color-primary);
-      display: block;
-    }
+  }
+
+  .stat-item_word {
+    background-image: url(../../../assets/img/stat-item_word.png);
+    width: 48px;
+    height: 48px;
+  }
+
+  .stat-item_nember {
+    background-image: url(../../../assets/img/stat-item_nember.png);
+    width: 48px;
+    height: 48px;
+  }
+
+  .stat-item_gaunzhu_nember {
+    background-image: url(../../../assets/img/stat-item_gaunzhu_nember.png);
+    width: 48px;
+    height: 48px;
+  }
+
+  .stat-item_reader {
+    background-image: url(../../../assets/img/stat-item_reader.png);
+    width: 48px;
+    height: 48px;
+  }
+
+
+  .stat-item_label {
+    margin-left: 16px;
+  }
+
+  .stat-label {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: normal;
+    color: #6B7280;
+  }
+
+  .stat-number {
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: #000000;
+    margin-left: -1px;
+    display: block;
   }
 
   .word {
