@@ -342,6 +342,8 @@ const handleEditArticle = () => {
 .article-content {
   padding: 24px 24px;
   position: relative;
+  max-width: 1300px;
+  margin: 0 auto;
 
   overflow: hidden;
   background-color: var(--el-bg-color);
