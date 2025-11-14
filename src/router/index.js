@@ -19,7 +19,7 @@ const router = createRouter({
           path: "article",
           name: "Article",
           component: () => import("@/views/Article/index.vue"),
-          meta: { title: "文章" },
+          meta: { title: "热门" },
         },
         {
           path: "search",
