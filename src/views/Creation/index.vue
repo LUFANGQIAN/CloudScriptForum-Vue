@@ -5,25 +5,34 @@
     </el-header>
     <el-container class="menu">
       <el-aside class="sidebar">
-        <el-menu class="pc-menu" :default-active="activeIndex" router @select="handleSelect" :default-openeds="['/creation/manage']">
+        <el-menu class="pc-menu" :default-active="activeIndex" router @select="handleSelect"
+          :default-openeds="['/creation/manage']" text-color="#000" active-text-color="#F97316">
           <div class="create">
             <a href="/editor" target="_blank">
               <div class="create-button">
-                <el-icon class="create-icon"><Plus /></el-icon>创作
+                <el-icon class="create-icon">
+                  <Plus />
+                </el-icon>创作
               </div>
             </a>
           </div>
-          <el-menu-item index="/" class="menu-item">
-            <el-icon><House /></el-icon>
+          <el-menu-item index="/" class="menu-item" >
+            <el-icon>
+              <House />
+            </el-icon>
             <span class="menu-text">网站首页</span>
           </el-menu-item>
           <el-menu-item index="/creation" class="menu-item">
-            <el-icon><HomeFilled /></el-icon>
+            <el-icon>
+              <HomeFilled />
+            </el-icon>
             <span class="menu-text">首页</span>
           </el-menu-item>
           <el-sub-menu index="/creation/manage" class="menu-item">
             <template #title>
-              <el-icon><Files /></el-icon>
+              <el-icon>
+                <Files />
+              </el-icon>
               <span class="menu-text">管理</span>
             </template>
             <el-menu-item index="/creation/articlemanage"> 文章管理 </el-menu-item>
@@ -66,23 +75,30 @@ watch(
 .layout-container {
   height: 100vh;
   display: flex;
+
   .header {
     height: 48px;
   }
+
   .menu {
     height: calc(100vh - 48px);
+
     .sidebar {
       width: 200px;
       height: calc(100vh - 48px);
+
       @media screen and (max-width: 768px) {
         display: none;
       }
+
       .pc-menu {
         // border-right: none;
         height: 100%;
+
         .create {
           padding: 10px;
           height: 60px;
+
           .create-button {
             width: 100%;
             border-radius: 10px;
@@ -90,26 +106,39 @@ watch(
             font-size: 20px;
             display: flex;
             align-items: center;
-            background-color: var(--el-bg-color-page);
+            background: #ffedd5;
             cursor: pointer;
+
             &:hover {
-              background-color: var(--el-text-color-disabled);
+              background: #ffedd5;
             }
+
             .create-icon {
               margin: 0 5px 0 12px;
-              color: var(--el-color-primary);
+              color: #e76721;
             }
           }
         }
+
         .menu-text {
           font-size: 18px;
         }
+
+        .menu-item {
+          &:hover {
+            color: #F97316;
+          }
+        }
+
+
       }
     }
+
     .main {
       @media screen and (max-width: 768px) {
         padding: 10px;
       }
+
       .router-view {
         height: 100%;
       }

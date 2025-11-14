@@ -5,15 +5,15 @@
     <div class="mobile-menu-button" @click="toggleMobileMenu">
       <svg-icon name="menu" width="50px" height="50px" cursor="pointer" />
     </div>
-    <router-link class="logo" to="/"><el-text size="large" class="logo-text">CloudScrpit</el-text></router-link>
-    <el-menu-item index="/" class="menu-item">
+    <router-link class="logo" to="/"><el-text size="large" class="logo-text">CloudScript</el-text></router-link>
+    <el-menu-item index="/" class="menu-item" >
       <span class="menu-text">主页</span>
     </el-menu-item>
     <el-menu-item index="/article" class="menu-item">
       <span class="menu-text">热门</span>
     </el-menu-item>
     <el-menu-item index="/link" class="menu-item">
-      <span class="menu-text">友联</span>
+      <span class="menu-text">友链</span>
     </el-menu-item>
     <el-menu-item index="/about" class="menu-item">
       <span class="menu-text">关于</span>
@@ -606,7 +606,7 @@ const onBlur = () => {
     }
   }
 
-  .el-menu--horizontal>.el-menu-item.is-active {
+  .el-menu--horizontal>.el-menu-item>.menu-item.is-active:active {
     color: #F97316 !important;
   }
 

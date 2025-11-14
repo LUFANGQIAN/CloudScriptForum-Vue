@@ -9,11 +9,15 @@
         </div>
         <div class="quick-actions">
           <a href="/editor" target="_blank" class="action-btn primary">
-            <el-icon><Edit /></el-icon>
+            <el-icon>
+              <Edit />
+            </el-icon>
             <span>开始创作</span>
           </a>
           <router-link to="/creation/articlemanage" class="action-btn secondary">
-            <el-icon><Management /></el-icon>
+            <el-icon>
+              <Management />
+            </el-icon>
             <span>管理文章</span>
           </router-link>
         </div>
@@ -32,7 +36,9 @@
         <div class="stat-card article-stats">
           <div class="stat-header">
             <div class="stat-icon article">
-              <el-icon><Document /></el-icon>
+              <el-icon>
+                <Document />
+              </el-icon>
             </div>
             <div class="stat-info">
               <h3>文章</h3>
@@ -59,7 +65,9 @@
         <div class="stat-card">
           <div class="stat-header">
             <div class="stat-icon column">
-              <el-icon><FolderOpened /></el-icon>
+              <el-icon>
+                <FolderOpened />
+              </el-icon>
             </div>
             <div class="stat-info">
               <h3>专栏</h3>
@@ -69,7 +77,9 @@
           <div class="stat-action">
             <router-link to="/creation/columnmanage" class="manage-link">
               <span>管理专栏</span>
-              <el-icon><ArrowRight /></el-icon>
+              <el-icon>
+                <ArrowRight />
+              </el-icon>
             </router-link>
           </div>
         </div>
@@ -78,7 +88,9 @@
         <div class="stat-card">
           <div class="stat-header">
             <div class="stat-icon comment">
-              <el-icon><ChatDotRound /></el-icon>
+              <el-icon>
+                <ChatDotRound />
+              </el-icon>
             </div>
             <div class="stat-info">
               <h3>评论</h3>
@@ -88,7 +100,9 @@
           <div class="stat-action">
             <router-link to="/creation/commentmanage" class="manage-link">
               <span>管理评论</span>
-              <el-icon><ArrowRight /></el-icon>
+              <el-icon>
+                <ArrowRight />
+              </el-icon>
             </router-link>
           </div>
         </div>
@@ -97,7 +111,9 @@
         <div class="stat-card">
           <div class="stat-header">
             <div class="stat-icon read">
-              <el-icon><View /></el-icon>
+              <el-icon>
+                <View />
+              </el-icon>
             </div>
             <div class="stat-info">
               <h3>总阅读量</h3>
@@ -129,7 +145,9 @@
         <div class="stat-card">
           <div class="stat-header">
             <div class="stat-icon fans">
-              <el-icon color="#fff"><User /></el-icon>
+              <el-icon color="#fff">
+                <User />
+              </el-icon>
             </div>
             <div class="stat-info">
               <h3>粉丝数</h3>
@@ -168,7 +186,9 @@
       <div class="tools-grid">
         <div class="tool-card" @click="goToEditor">
           <div class="tool-icon create">
-            <el-icon><EditPen /></el-icon>
+            <el-icon>
+              <EditPen />
+            </el-icon>
           </div>
           <div class="tool-info">
             <h3>写文章</h3>
@@ -178,7 +198,9 @@
 
         <div class="tool-card" @click="goToArticleManage">
           <div class="tool-icon manage">
-            <el-icon><Files /></el-icon>
+            <el-icon>
+              <Files />
+            </el-icon>
           </div>
           <div class="tool-info">
             <h3>文章管理</h3>
@@ -188,7 +210,9 @@
 
         <div class="tool-card" @click="goToColumnManage">
           <div class="tool-icon column">
-            <el-icon><Collection /></el-icon>
+            <el-icon>
+              <Collection />
+            </el-icon>
           </div>
           <div class="tool-info">
             <h3>专栏管理</h3>
@@ -198,7 +222,9 @@
 
         <div class="tool-card" @click="goToCommentManage">
           <div class="tool-icon comment">
-            <el-icon><Message /></el-icon>
+            <el-icon>
+              <Message />
+            </el-icon>
           </div>
           <div class="tool-info">
             <h3>评论管理</h3>
@@ -394,18 +420,18 @@ onMounted(() => {
           }
 
           &.primary {
-            background: #409eff;
+            background-color: #F97316;
             color: white;
             box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
 
             &:hover {
-              background: #66b1ff;
+              background: #EA580C;
               transform: translateY(-2px);
-              box-shadow: 0 6px 16px rgba(64, 158, 255, 0.4);
+              box-shadow: 0 6px 16px rgba(255, 121, 64, 0.4);
             }
 
             &:active {
-              background: #3a8ee6;
+              background: #EA580C;
               transform: translateY(0);
             }
           }
@@ -417,7 +443,7 @@ onMounted(() => {
 
             &:hover {
               background: #ecf5ff;
-              color: #409eff;
+              color: #EA580C;
               border-color: #c6e2ff;
               transform: translateY(-2px);
             }

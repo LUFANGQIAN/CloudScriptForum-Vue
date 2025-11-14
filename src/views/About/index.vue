@@ -122,66 +122,6 @@
     </main>
 
     <!-- 页脚 -->
-    <footer class="footer">
-      <div class="footer-wave">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z">
-          </path>
-        </svg>
-      </div>
-      <div class="container">
-        <div class="footer-content">
-          <!-- 左侧品牌信息 -->
-          <div class="footer-brand">
-            <h3 class="brand-title">
-              <span class="brand-icon">✨</span>
-              CloudScript
-            </h3>
-            <p class="brand-description">分享技术、经验和见解<br />用代码改变世界</p>
-
-          </div>
-
-          <!-- 中间导航链接 -->
-          <div class="footer-links">
-            <div class="footer-column">
-              <h4 class="column-title">
-                <el-icon>
-                  <Compass />
-                </el-icon>
-                快速导航
-              </h4>
-              <ul class="links-list">
-                <li><router-link to="/">首页</router-link></li>
-                <li><router-link to="/article">文章</router-link></li>
-                <li><router-link to="/album">相册</router-link></li>
-                <li><router-link to="/link">友链</router-link></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- 底部版权信息 -->
-        <div class="footer-bottom">
-          <div class="footer-divider"></div>
-          <div class="footer-bottom-content">
-            <div class="footer-left">
-              <p class="copyright">&copy; {{ currentYear }} <strong>CloudScript</strong>. All Rights Reserved.</p>
-              <!-- <p class="beian">
-                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2024324512号-2</a>
-              </p> -->
-            </div>
-            <div class="footer-meta">
-              <span>Made with ❤️ by CloudScript</span>
-              <span class="separator">|</span>
-              <a href="#">隐私政策</a>
-              <span class="separator">|</span>
-              <a href="#">使用条款</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -714,9 +654,10 @@ $shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                 transition: all 0.3s ease;
                 padding: 4px 8px;
                 border-radius: 6px;
+                color: #F97316;
 
                 &:hover {
-                  color: #2980b9;
+                  color: #EA580C;
                   background-color: rgba(52, 152, 219, 0.1);
                 }
               }
@@ -735,6 +676,7 @@ $shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   .footer {
     position: relative;
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+    background-color: var(--el-color-primary);
     color: $white;
     padding: 0;
     overflow: hidden;
