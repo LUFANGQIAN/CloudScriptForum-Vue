@@ -18,6 +18,14 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 7000,
     open: true,
+    proxy: {
+      "/api": {
+        target: 'https://ass.cloudscript.club/',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
   plugins: [
     vue(),
@@ -40,26 +48,26 @@ export default defineConfig({
     // 如果是生产环境, 启用代码混淆
     ...(process.env.NODE_ENV === "production"
       ? [
-          viteObfuscateFile({
-            // 混淆选项 - 调整为更温和的设置以避免样式问题
-            compact: false, // 压缩代码
-            controlFlowFlattening: false, // 禁用控制流扁平化，避免破坏样式逻辑
-            deadCodeInjection: false, // 不注入死代码
-            debugProtection: false, // 不启用调试保护
-            disableConsoleOutput: true, // 禁用console输出
-            identifierNamesGenerator: "hexadecimal", // 标识符生成方式
-            renameGlobals: false, // 不重命名全局变量
-            rotateStringArray: false, // 旋转字符串数组
-            selfDefending: false, // 启用自保护
-            stringArray: false, // 字符串数组
-            stringArrayEncoding: ["base64"], // 字符串数组编码
-            stringArrayThreshold: 0.75, // 字符串数组阈值
-            transformObjectKeys: false, // 不转换对象键，避免影响样式类名
-            unicodeEscapeSequence: false, // 不使用Unicode转义序列
-            // 排除disableDevtool.js文件
-            exclude: ["**/disableDevtool.js"],
-          }),
-        ]
+        viteObfuscateFile({
+          // 混淆选项 - 调整为更温和的设置以避免样式问题
+          compact: false, // 压缩代码
+          controlFlowFlattening: false, // 禁用控制流扁平化，避免破坏样式逻辑
+          deadCodeInjection: false, // 不注入死代码
+          debugProtection: false, // 不启用调试保护
+          disableConsoleOutput: true, // 禁用console输出
+          identifierNamesGenerator: "hexadecimal", // 标识符生成方式
+          renameGlobals: false, // 不重命名全局变量
+          rotateStringArray: false, // 旋转字符串数组
+          selfDefending: false, // 启用自保护
+          stringArray: false, // 字符串数组
+          stringArrayEncoding: ["base64"], // 字符串数组编码
+          stringArrayThreshold: 0.75, // 字符串数组阈值
+          transformObjectKeys: false, // 不转换对象键，避免影响样式类名
+          unicodeEscapeSequence: false, // 不使用Unicode转义序列
+          // 排除disableDevtool.js文件
+          exclude: ["**/disableDevtool.js"],
+        }),
+      ]
       : []),
   ],
   resolve: {
@@ -69,6 +77,7 @@ export default defineConfig({
   },
   base: "/",
   build: {
+    cssCodeSplit: false,
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {

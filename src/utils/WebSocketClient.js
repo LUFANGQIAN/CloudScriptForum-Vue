@@ -28,7 +28,7 @@ class WebSocketClient {
 
     // 将 HTTP URL 转换为 WebSocket URL 例如 http://localhost:5000 转换为 ws://localhost:5000
     const httpUrl = import.meta.env.VITE_BACKEND_SERVER || "http://localhost:5000";
-    const wsUrl = `${httpUrl.replace(/^http/, "ws")}/ws/message?token=${token}`;
+    const wsUrl = `${httpUrl.replace(/^https/, "ws")}/ws/message?token=${token}`;
     this.url = wsUrl;
     // 是否手动关闭
     this.isManualClose = false;
