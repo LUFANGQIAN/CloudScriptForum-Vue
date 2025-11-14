@@ -71,7 +71,14 @@
           </div>
           <div class="hot-grid">
             <div class="hot-card" v-for="item in hotList" :key="item.id" @click="goToArticle(item)">
-              <el-image :src="item.coverUrl" fit="cover" />
+              <el-image :src="resolveCover(item)" fit="cover" lazy>
+                <template #placeholder>
+                  <div class="image-placeholder"><el-icon class="is-loading"><Loading /></el-icon></div>
+                </template>
+                <template #error>
+                  <div class="image-error"><el-icon><Picture /></el-icon></div>
+                </template>
+              </el-image>
               <div class="hot-info">
                 <div class="hot-title">{{ item.title }}</div>
                 <div class="hot-meta">
@@ -221,6 +228,14 @@ onMounted(async () => {
 });
 
 const formatNumber = (n) => Number(n || 0).toLocaleString('zh-CN');
+
+const resolveCover = (item) => {
+  const direct = item?.coverUrl || '';
+  if (direct) return direct;
+  const html = item?.content || '';
+  const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return m?.[1] || '';
+};
 </script>
 
 <style lang="scss" scoped>
@@ -247,7 +262,6 @@ $muted: var(--el-text-color-secondary);
   top: 70px;
   align-self: start;
   background-color: var(--el-bg-color);
-  height: 100%;
   border-radius: 12px;
   padding: 16px;
 }
@@ -390,6 +404,17 @@ $muted: var(--el-text-color-secondary);
 .hot-card .el-image {
   width: 100%;
   height: 130px;
+}
+
+.image-placeholder,
+.image-error {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--el-fill-color-light);
+  color: var(--el-text-color-placeholder);
 }
 
 .hot-info {
