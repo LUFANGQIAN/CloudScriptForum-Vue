@@ -7,7 +7,9 @@
         <div class="header-content">
           <div class="header-info">
             <h1 class="page-title">
-              <el-icon class="title-icon"><Link /></el-icon>
+              <el-icon class="title-icon">
+                <Link />
+              </el-icon>
               友情链接
             </h1>
             <p class="page-description">发现更多优质网站，与志同道合的朋友交换友链，共同成长</p>
@@ -16,7 +18,9 @@
           <!-- 申请友链按钮 - 只在登录时显示 -->
           <div v-if="isUserLoggedIn" class="header-actions">
             <el-button type="primary" size="large" @click="showApplyDialog" class="apply-btn">
-              <el-icon><Plus /></el-icon>
+              <el-icon>
+                <Plus />
+              </el-icon>
               申请友链
             </el-button>
           </div>
@@ -24,7 +28,9 @@
           <!-- 未登录时的提示 -->
           <div v-else class="header-actions">
             <el-button size="large" @click="goToLogin" class="login-btn">
-              <el-icon><Plus /></el-icon>
+              <el-icon>
+                <Plus />
+              </el-icon>
               登录后申请友链
             </el-button>
           </div>
@@ -57,14 +63,18 @@
           <div v-else-if="linkList.length === 0" class="empty-state">
             <div class="empty-content">
               <div class="empty-icon">
-                <el-icon><DocumentRemove /></el-icon>
+                <el-icon>
+                  <DocumentRemove />
+                </el-icon>
               </div>
               <h3 class="empty-title">暂无友链</h3>
               <p class="empty-description">
                 {{ isUserLoggedIn ? "快来申请第一个友链吧！" : "暂时还没有友链，期待更多精彩网站加入！" }}
               </p>
               <el-button v-if="isUserLoggedIn" type="primary" @click="showApplyDialog">
-                <el-icon><Plus /></el-icon>
+                <el-icon>
+                  <Plus />
+                </el-icon>
                 申请友链
               </el-button>
             </div>
@@ -81,12 +91,16 @@
                 <el-image :src="link.coverUrl || ''" fit="contain" class="cover-image" :alt="link.name">
                   <template #placeholder>
                     <div class="image-placeholder">
-                      <el-icon><Loading /></el-icon>
+                      <el-icon>
+                        <Loading />
+                      </el-icon>
                     </div>
                   </template>
                   <template #error>
                     <div class="image-error">
-                      <el-icon><Picture /></el-icon>
+                      <el-icon>
+                        <Picture />
+                      </el-icon>
                     </div>
                   </template>
                 </el-image>
@@ -94,14 +108,18 @@
                 <!-- 悬浮操作 -->
                 <div class="cover-overlay">
                   <div class="overlay-content">
-                    <el-icon class="visit-icon"><View /></el-icon>
+                    <el-icon class="visit-icon">
+                      <View />
+                    </el-icon>
                     <span class="visit-text">访问网站</span>
                   </div>
                 </div>
 
                 <!-- 我的友链标识 -->
                 <div v-if="isCurrentUserLink(link)" class="my-link-badge">
-                  <el-icon><User /></el-icon>
+                  <el-icon>
+                    <User />
+                  </el-icon>
                   <span>我的</span>
                 </div>
               </div>
@@ -117,14 +135,19 @@
                 <!-- 网站地址 -->
                 <div class="link-footer">
                   <div class="link-url">
-                    <el-icon class="url-icon"><Link /></el-icon>
+                    <el-icon class="url-icon">
+                      <Link />
+                    </el-icon>
                     <span>{{ formatUrl(link.url) }}</span>
                   </div>
 
                   <!-- 删除按钮 - 仅当前用户的友链显示 -->
                   <div v-if="isCurrentUserLink(link)" class="delete-action" @click.stop>
-                    <el-button type="danger" size="small" circle class="delete-btn" @click="handleDeleteLink(link)" :loading="deletingLinkId === link.id">
-                      <el-icon><Delete /></el-icon>
+                    <el-button type="danger" size="small" circle class="delete-btn" @click="handleDeleteLink(link)"
+                      :loading="deletingLinkId === link.id">
+                      <el-icon>
+                        <Delete />
+                      </el-icon>
                     </el-button>
                   </div>
                 </div>
@@ -385,16 +408,19 @@ onUnmounted(() => {
 
       .header-actions {
         .apply-btn {
+          background-color: #F97316;
+          border: none;
+          box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3), 0 4px 12px rgba(249, 115, 22, 0.2);
+          transform: translateY(-1px);
           padding: 12px 24px;
           font-size: 16px;
           border-radius: 8px;
           font-weight: 500;
-          box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
           transition: all 0.3s ease;
 
           &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(64, 158, 255, 0.4);
+            box-shadow: 0 6px 16px rgba(224, 129, 70, 0.3);
           }
 
           .el-icon {
@@ -434,6 +460,7 @@ onUnmounted(() => {
 
   // 友链区域
   .links-section {
+
     // 加载状态
     .loading-container {
       .link-skeleton {
@@ -801,6 +828,7 @@ onUnmounted(() => {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -812,6 +840,7 @@ onUnmounted(() => {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -820,10 +849,12 @@ onUnmounted(() => {
 
 // 弹跳动画
 @keyframes bounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
