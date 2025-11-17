@@ -331,7 +331,7 @@ const copyArticleLink = async () => {
   // 两栏布局容器
   .article-container {
     padding-top: 70px;
-    max-width: 1600px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 280px;
