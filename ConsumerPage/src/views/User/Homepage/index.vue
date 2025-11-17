@@ -944,16 +944,14 @@ $bg-color: #f5f7fa;
     max-width: 336px;
     height: 92px;
     // left: 950px;
-    margin-left: 2px;
 
   }
 
   .reader {
     // position: absolute;
-    max-width: 336px;
+    max-width: 338px;
     height: 92px;
     left: 1300px;
-    margin-left: 2px;
 
   }
 
