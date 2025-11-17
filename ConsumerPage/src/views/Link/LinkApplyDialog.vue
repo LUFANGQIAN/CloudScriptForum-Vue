@@ -1,10 +1,10 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="申请友链" :width="dialogWidth" :before-close="handleClose" class="link-apply-dialog">
+  <el-dialog v-model="dialogVisible" title="申请工具" :width="dialogWidth" :before-close="handleClose" class="link-apply-dialog">
     <!-- 对话框头部说明 -->
     <div class="dialog-header">
       <el-icon class="header-icon"><Link /></el-icon>
       <div class="header-content">
-        <h3 class="header-title">友链申请</h3>
+        <h3 class="header-title">工具申请</h3>
         <p class="header-description">请填写您的网站信息，我们会尽快审核您的申请</p>
       </div>
     </div>
@@ -216,7 +216,7 @@ const handleSubmit = async () => {
     // 提交申请
     await applyLink(linkForm);
 
-    ElMessage.success("友链申请提交成功，我们会尽快审核！");
+    ElMessage.success("工具申请提交成功，我们会尽快审核！");
     emit("success");
     handleClose();
   } catch (error) {
@@ -242,7 +242,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-// 友链申请对话框样式
+// 工具申请对话框样式
 .link-apply-dialog {
   :deep(.el-dialog) {
     border-radius: 12px;

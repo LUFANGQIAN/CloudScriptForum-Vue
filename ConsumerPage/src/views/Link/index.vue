@@ -15,7 +15,7 @@
             <p class="page-description">汇聚实用工具，赋能高效创作</p>
           </div>
 
-          <!-- 申请友链按钮 - 只在登录时显示 -->
+          <!-- 申请工具按钮 - 只在登录时显示 -->
           <div v-if="isUserLoggedIn" class="header-actions">
             <el-button type="primary" size="large" @click="showApplyDialog" class="apply-btn">
               <el-icon>
@@ -31,7 +31,7 @@
               <el-icon>
                 <Plus />
               </el-icon>
-              登录后申请友链
+              登录后申请工具
             </el-button>
           </div>
         </div>
@@ -67,15 +67,15 @@
                   <DocumentRemove />
                 </el-icon>
               </div>
-              <h3 class="empty-title">暂无友链</h3>
+              <h3 class="empty-title">暂无工具</h3>
               <p class="empty-description">
-                {{ isUserLoggedIn ? "快来申请第一个友链吧！" : "暂时还没有友链，期待更多精彩网站加入！" }}
+                {{ isUserLoggedIn ? "快来申请第一个工具吧！" : "暂时还没有工具，期待更多精彩网站加入！" }}
               </p>
               <el-button v-if="isUserLoggedIn" type="primary" @click="showApplyDialog">
                 <el-icon>
                   <Plus />
                 </el-icon>
-                申请友链
+                申请工具
               </el-button>
             </div>
           </div>
