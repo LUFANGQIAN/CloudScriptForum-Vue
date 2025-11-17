@@ -115,6 +115,7 @@ import { getChatHistory } from "@/api/privateMessage";
 import { getUserInfoById } from "@/api/user";
 import { getConversationList } from "@/api/conversation";
 import { uploadMessagePhoto } from "@/api/photo";
+import { ElMessage } from "element-plus";
 import { useMessageStore } from "@/stores/messageStore";
 import { useUserStore } from "@/stores/userStore";
 import WebSocketClient from "@/utils/WebSocketClient";

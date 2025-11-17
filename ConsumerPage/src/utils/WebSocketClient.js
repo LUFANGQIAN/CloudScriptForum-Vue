@@ -1,4 +1,4 @@
-import { ElMessage } from "element-plus";import { GetJwt } from "@/utils/Auth";
+import { GetJwt } from "@/utils/Auth";
 import { ElMessage } from "element-plus";
 
 class WebSocketClient {
@@ -85,6 +85,7 @@ class WebSocketClient {
    * 发送消息
    */
   send(message) {
+   // 如果连接已建立，直接发送消息
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       const json = JSON.stringify(message);
       this.ws.send(json);
@@ -93,8 +94,18 @@ class WebSocketClient {
         console.log("发送 WebSocket 消息:", message);
       }
     } else {
-      console.error("WebSocket 未连接");
-      ElMessage.error("网络连接异常，请稍后重试");
+      
+      // 修改后
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        // 发送消息...
+      } else {
+        // 如果连接未建立，尝试自动连接
+        console.log("WebSocket 未连接，尝试自动连接...");
+        this.connect();
+        // 不再显示错误消息，避免干扰用户体验
+      }
+      // 仅在明确的连接错误情况下显示错误消息
+      // 不显示错误消息，避免干扰用户体验
     }
   }
 

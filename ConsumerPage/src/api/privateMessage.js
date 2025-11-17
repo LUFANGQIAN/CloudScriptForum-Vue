@@ -1,6 +1,17 @@
 import request from "@/utils/Request";
 
 /**
+ * 发送私信（HTTP备用方式）
+ */
+export function sendPrivateMessage(data) {
+  return request({
+    url: "/message/send",
+    method: "post",
+    data
+  });
+}
+
+/**
  * 获取聊天记录
  */
 export function getChatHistory(targetUserId, pageNum, pageSize) {

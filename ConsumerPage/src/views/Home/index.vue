@@ -203,14 +203,14 @@ const setTrend = (key, trend) => {
 const fetchRegisteredUsers = async () => {
   // 注册用户总数接口暂缺，预期为 GET /user/count 或类似端点
   // 这里使用假数据 5678，并设置“较上周”+8% 的占位趋势
-  updateStat('registered', 5678);
+  updateStat('registered', 28);
   setTrend('registered', { value: 8, up: true, label: '较上周' });
 };
 
 const fetchOnlineUsers = async () => {
   // 在线用户统计接口暂缺，预期为 GET /user/online/count 或类似端点
   // 这里使用假数据 342，并设置“较昨日”+5% 的占位趋势
-  updateStat('online', 342);
+  updateStat('online', 7);
   setTrend('online', { value: 5, up: true, label: '较昨日' });
 };
 
