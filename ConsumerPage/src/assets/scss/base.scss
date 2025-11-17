@@ -1,0 +1,118 @@
+html {
+  // 强制显示滚动条，防止页面切换时因滚动条出现/消失导致的抖动
+  // 代价：无滚动时也会占据约15px空间，但换来稳定的视觉体验
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0px;
+  padding: 0px !important;
+  font-size: 14px;
+}
+
+// 修复 Element Plus 对话框导致的页面右侧留白的问题
+body.el-popup-parent--hidden {
+  width: 100% !important;
+  padding-right: 0 !important;
+  overflow: hidden !important;
+}
+
+@font-face {
+  font-family: "AlimamaShuHei";
+  src: url("@/assets/font/AlimamaShuHei/AlimamaShuHeiTi-Bold.woff2") format("woff2"), url("@/assets/font/AlimamaShuHei/AlimamaShuHeiTi-Bold.woff") format("woff"), url("@/assets/font/AlimamaShuHei/AlimamaShuHeiTi-Bold.ttf") format("truetype"),
+    url("@/assets/font/AlimamaShuHei/AlimamaShuHeiTi-Bold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+* {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+// 超链接去掉下划线
+a {
+  color: var(--el-text-color-primary);
+  text-decoration: none;
+}
+
+// el-dropdown 去掉黑框
+.el-tooltip__trigger:focus-visible {
+  outline: unset;
+}
+
+// -enter-active 和 -leave-active 定义进入和离开的动画效果
+// -enter-from 和 -leave-to定义进入和离开的状态
+
+// 淡入淡出动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// 缩放动画
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* 移动端菜单动画 */
+// 进入前和离开后的状态（初始和结束状态）
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  background-color: rgba(0, 0, 0, 0);
+  .mobile-menu {
+    transform: translateX(-100%); // 菜单在左侧，向右滑入
+    opacity: 0;
+  }
+}
+
+// 进入和离开过程中的动画属性
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.5s ease;
+  .mobile-menu {
+    transition: all 0.5s ease;
+  }
+}
+
+// 进入后和离开前的状态（目标和初始状态）
+.slide-fade-enter-to,
+.slide-fade-leave-from {
+  background-color: rgba(0, 0, 0, 0.3); // 半透明背景
+  .mobile-menu {
+    transform: translateX(0); // 菜单在原位
+    opacity: 1;
+  }
+}
+
+/* 设置滚动条宽度和颜色 */
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--el-border-color-light);
+}
+
+
+/* 设置滚动条滑块颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+// 缩放动画
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}

@@ -1,0 +1,137 @@
+/* 引入阿里巴巴普惠体字体 */
+@font-face {
+  font-family: 'Ailibabahuiputi';
+  src: url('@/assets/font/ailibabahuiputi/Alibaba_PuHuiTi_2.0_55_Regular_85_Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: 'Ailibabahuiputi', "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+  overflow: hidden; // 禁止页面本身滚动
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
+}
+
+// 防止 Element Plus 对话框打开时页面抖动
+// Element Plus 会添加 padding-right 补偿滚动条，但我们页面本身不滚动，需要重置
+body.el-popup-parent--hidden {
+  padding: 0 !important;
+}
+
+//超链接去掉下划线
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+// el-dropdown 去掉黑框
+.el-tooltip__trigger:focus-visible {
+  outline: unset;
+}
+
+/* 设置滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+/* 设置滚动条轨道样式 */
+::-webkit-scrollbar-track {
+  background-color: var(--el-border-color-light);
+  border-radius: 4px;
+}
+
+/* 设置滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+  background-color: #c0c4cc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: #909399;
+  }
+}
+
+// -enter-active 和 -leave-active 定义进入和离开的动画效果
+// -enter-from 和 -leave-to定义进入和离开的状态
+
+// 淡入淡出动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// 缩放动画
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+:root {
+  --brand-primary: #42b983;
+  --brand-primary-2: #3aa17e;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --el-color-primary: var(--brand-primary);
+  --el-color-primary-light-3: color-mix(in srgb, var(--brand-primary) 70%, white 30%);
+  --el-color-primary-light-5: color-mix(in srgb, var(--brand-primary) 50%, white 50%);
+  --el-color-primary-light-7: color-mix(in srgb, var(--brand-primary) 30%, white 70%);
+  --el-color-primary-dark-2: color-mix(in srgb, var(--brand-primary) 80%, black 20%);
+}
+
+.dark {
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --el-color-primary: var(--brand-primary);
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
