@@ -197,6 +197,7 @@ const { isDark } = storeToRefs(darkStore);
 
 const DEEPSEEK_BASE_URL = import.meta.env.VITE_DEEPSEEK_BASE_URL || "https://api.deepseek.com";
 const DEEPSEEK_API_KEY = import.meta.env.VITE_DEEPSEEK_API_KEY || "";
+const ENABLE_AI = !!DEEPSEEK_BASE_URL && !!DEEPSEEK_API_KEY;
 
 // 获取路由实例
 const route = useRoute();
@@ -426,16 +427,30 @@ onMounted(async () => {
         },
         bubbleMenuItems: ["delete"], // 选中图片时的浮动菜单配置, 只显示删除
       },
-      toolbarExcludeKeys: ["subscript", "superscript", "break", "video", "source-code", "printer", "fullscreen", "attachment"],
-      ai: {
-        models: {
-          openai: {
-            apiKey: DEEPSEEK_API_KEY,
-            model: "deepseek-chat",
-            endpoint: DEEPSEEK_BASE_URL,
-          },
-        },
-      },
+      toolbarExcludeKeys: [
+        "subscript",
+        "superscript",
+        "break",
+        "video",
+        "source-code",
+        "printer",
+        "fullscreen",
+        "attachment",
+        ...(ENABLE_AI ? [] : ["ai"]),
+      ],
+      ai: ENABLE_AI
+        ? {
+            models: {
+              openai: {
+                apiKey: DEEPSEEK_API_KEY,
+                model: "deepseek-chat",
+                endpoint: DEEPSEEK_BASE_URL,
+              },
+            },
+            bubblePanelEnable: true,
+            bubblePanelModel: "openai",
+          }
+        : { bubblePanelEnable: false },
       onSave: (editor) => {
         ElMessage.success("文档保存成功！");
         return true;
