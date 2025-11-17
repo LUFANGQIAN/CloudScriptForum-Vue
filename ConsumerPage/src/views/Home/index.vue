@@ -42,7 +42,7 @@
       </aside>
       <main class="main">
         <section class="welcome-banner">
-          <div class="title">欢迎来到云论坛</div>
+          <div class="title">欢迎来到云章论坛</div>
           <div class="desc">这里是技术交流与分享的社区，点击右上角的铃铛查看更多消息。</div>
         </section>
         <section class="stats">

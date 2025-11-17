@@ -13,7 +13,7 @@
       <span class="menu-text">热门</span>
     </el-menu-item>
     <el-menu-item index="/link" class="menu-item">
-      <span class="menu-text">友链</span>
+      <span class="menu-text">工具</span>
     </el-menu-item>
     <el-menu-item index="/about" class="menu-item">
       <span class="menu-text">关于</span>
@@ -140,6 +140,7 @@ import { useRoute, useRouter } from "vue-router";
 import { info, oauthLogin } from "@/api/user";
 import { SetJwt } from "@/utils/Auth";
 import { UserFilled, User, Setting, SwitchButton, ChatDotRound, Bell } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 import { useMessageStore } from "@/stores/messageStore";
 import { getUnreadCount } from "@/api/privateMessage";
 import { getUnreadNotificationCount } from "@/api/notification";

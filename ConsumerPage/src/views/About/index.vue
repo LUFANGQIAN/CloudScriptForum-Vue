@@ -5,7 +5,7 @@
       <div class="hero-background"></div>
       <div class="hero-content">
         <h1 class="hero-title">CloudScrpit</h1>
-        <p class="hero-subtitle">分享技术、经验和见解</p>
+        <p class="hero-subtitle">给思想以代码，而非给代码以思想</p>
       </div>
       <div class="scroll-indicator" @click="scrollToContent">
         <div class="mouse">

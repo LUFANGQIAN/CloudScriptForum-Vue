@@ -10,9 +10,9 @@
               <el-icon class="title-icon">
                 <Link />
               </el-icon>
-              友情链接
+              工具集
             </h1>
-            <p class="page-description">发现更多优质网站，与志同道合的朋友交换友链，共同成长</p>
+            <p class="page-description">汇聚实用工具，赋能高效创作</p>
           </div>
 
           <!-- 申请友链按钮 - 只在登录时显示 -->
@@ -21,7 +21,7 @@
               <el-icon>
                 <Plus />
               </el-icon>
-              申请友链
+              探索工具
             </el-button>
           </div>
 
