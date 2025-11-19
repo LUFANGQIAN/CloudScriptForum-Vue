@@ -47,6 +47,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { Delete } from "@element-plus/icons-vue";
+import { ElMessageBox } from "element-plus";
 import { getConversationList, deleteConversation } from "@/api/conversation";
 import { useMessageStore } from "@/stores/messageStore";
 import WebSocketClient from "@/utils/WebSocketClient";

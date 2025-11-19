@@ -214,6 +214,9 @@ const sendMessage = () => {
   messageStore.addMessageToCurrentChat(tempMessage);
   scrollToBottom();
 
+  if (!WebSocketClient.isConnected()) {
+    ElMessage.warning("网络异常，消息已排队后自动发送")
+  }
   WebSocketClient.sendTextMessage(targetUserId.value, content);
   messageContent.value = "";
 };
@@ -278,7 +281,9 @@ const handleImageSelect = async (event) => {
     messageStore.addMessageToCurrentChat(tempMessage);
     scrollToBottom();
 
-    // 发送图片消息
+    if (!WebSocketClient.isConnected()) {
+      ElMessage.warning("网络异常，图片消息已排队后自动发送")
+    }
     WebSocketClient.sendImageMessage(targetUserId.value, imageUrl);
     ElMessage.success("图片发送成功");
   } catch (error) {

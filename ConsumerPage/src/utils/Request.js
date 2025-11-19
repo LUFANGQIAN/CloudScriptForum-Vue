@@ -14,7 +14,12 @@ const userStore = useUserStore();
 // 创建axios
 const request = axios.create({
   // 后端地址
-  baseURL: import.meta.env.VITE_BACKEND_SERVER + 'api',
+  baseURL: (() => {
+    const base = import.meta.env.VITE_BACKEND_SERVER || ""
+    if (!base) return "/api"
+    const normalized = base.endsWith("/") ? base.slice(0, -1) : base
+    return normalized.endsWith("/api") ? normalized : `${normalized}/api`
+  })(),
   withCredentials: false, // 用于配置请求接口跨域时是否需要凭证
   timeout: 30000, // 增加超时时间到30秒
   headers: {

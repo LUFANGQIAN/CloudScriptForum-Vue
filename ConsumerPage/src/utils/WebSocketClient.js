@@ -9,6 +9,8 @@ class WebSocketClient {
     this.heartbeatTimer = null; // 心跳定时器
     this.isManualClose = false; // 是否手动关闭 (用于判断是否需要自动重连)
     this.messageHandlers = new Map(); // 消息处理器 (观察者模式)
+    this.pendingMessages = []
+    this.connecting = false
   }
 
   /**
@@ -18,6 +20,7 @@ class WebSocketClient {
     const token = GetJwt();
     if (!token) {
       console.error("WebSocket 连接失败：token 为空");
+      ElMessage.error("未登录或令牌失效，无法建立私信连接")
       return;
     }
 
@@ -27,20 +30,56 @@ class WebSocketClient {
       this.close();
     }
 
-    // 将 HTTP URL 转换为 WebSocket URL 例如 http://localhost:5000 转换为 ws://localhost:5000
-    const httpUrl = import.meta.env.VITE_BACKEND_SERVER || "http://localhost:5000";
-    const wsUrl = `${httpUrl.replace(/^https/, "ws")}/ws/message?token=${token}`;
+    const httpUrl = import.meta.env.VITE_BACKEND_SERVER || "http://localhost:5000"
+    let wsUrl = ""
+    const useApiPrefix = (u) => {
+      if (!u) return true
+      const trimmed = u.endsWith("/") ? u.slice(0, -1) : u
+      return !(trimmed.endsWith("/api") || trimmed === "/api")
+    }
+    const wsPath = useApiPrefix(httpUrl) ? "/api/ws/message" : "/ws/message"
+
+    if (httpUrl.startsWith("http://") || httpUrl.startsWith("https://")) {
+      const wsBase = httpUrl.startsWith("https://")
+        ? httpUrl.replace(/^https:\/\//, "wss://")
+        : httpUrl.replace(/^http:\/\//, "ws://")
+      wsUrl = `${wsBase.replace(/\/$/, "")}${wsPath}?token=${token}`
+    } else if (httpUrl.startsWith("/")) {
+      const proto = window.location.protocol === "https:" ? "wss" : "ws"
+      const host = window.location.host
+      const basePath = httpUrl.replace(/\/$/, "")
+      wsUrl = `${proto}://${host}${basePath}${wsPath === "/ws/message" ? "" : ""}${wsPath}?token=${token}`
+    } else {
+      const proto = window.location.protocol === "https:" ? "wss" : "ws"
+      const host = window.location.host
+      wsUrl = `${proto}://${host}${wsPath}?token=${token}`
+    }
     this.url = wsUrl;
     // 是否手动关闭
     this.isManualClose = false;
+    this.connecting = true
 
     try {
+      console.info("正在建立 WebSocket 连接:", this.url)
       this.ws = new WebSocket(wsUrl);
 
       // 连接成功
       this.ws.onopen = () => {
         // 开始心跳
         this.startHeartbeat();
+        this.connecting = false
+        if (this.pendingMessages.length > 0) {
+          const queue = [...this.pendingMessages]
+          this.pendingMessages = []
+          queue.forEach((msg) => {
+            const json = JSON.stringify(msg)
+            this.ws.send(json)
+            if (msg.type !== "HEARTBEAT") {
+              console.log("发送 WebSocket 消息:", msg)
+            }
+          })
+          ElMessage.success("已恢复连接，排队消息已发送")
+        }
         // 触发连接成功事件
         this.triggerHandler("open");
       };
@@ -61,6 +100,7 @@ class WebSocketClient {
         console.error("WebSocket 错误:", error);
         // 触发连接错误事件
         this.triggerHandler("error", error);
+        this.connecting = false
       };
 
       // 连接关闭
@@ -69,6 +109,7 @@ class WebSocketClient {
         this.stopHeartbeat();
         // 触发连接关闭事件
         this.triggerHandler("close");
+        this.connecting = false
 
         // 如果非手动关闭，则自动重连
         if (!this.isManualClose) {
@@ -78,6 +119,7 @@ class WebSocketClient {
       };
     } catch (error) {
       console.error("创建 WebSocket 连接失败:", error);
+      this.connecting = false
     }
   }
 
@@ -94,10 +136,14 @@ class WebSocketClient {
         console.log("发送 WebSocket 消息:", message);
       }
     } else {
-      // 如果连接未建立，尝试自动连接
-      console.log("WebSocket 未连接，尝试自动连接...");
-      this.connect();
-      // 不再显示错误消息，避免干扰用户体验
+      this.pendingMessages.push(message)
+      if (!this.connecting) {
+        console.log("WebSocket 未连接，尝试自动连接...")
+        this.connect()
+      }
+      if (message.type !== "HEARTBEAT") {
+        ElMessage.warning("网络异常，消息已排队，连接恢复后自动发送")
+      }
     }
   }
 
